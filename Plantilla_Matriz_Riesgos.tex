@@ -1,0 +1,389 @@
+% =========================================================
+%  PLANTILLA DE MATRIZ DE RIESGOS
+%  Actividad A03 - Administración de Riesgos
+%  Seguridad Aplicada a Sistemas de Información
+%  Compilar con: pdfLaTeX (Overleaf o TeX Live/MiKTeX)
+% =========================================================
+\documentclass[11pt,a4paper]{article}
+
+% ----------------- Paquetes -----------------
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{left=2.2cm,right=2.2cm,top=2.5cm,bottom=2.5cm}
+\usepackage[table]{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{array}
+
+% ----------------- Colores institucionales -----------------
+\definecolor{azulmat}{RGB}{0,84,140}
+\definecolor{griscaja}{RGB}{245,245,245}
+\definecolor{azulsuave}{RGB}{232,240,250}
+\definecolor{amarillosuave}{RGB}{255,255,224}
+% Colores de la matriz de calor
+\definecolor{nivelbajo}{RGB}{144,238,144}
+\definecolor{nivelmedio}{RGB}{255,235,120}
+\definecolor{nivelalto}{RGB}{255,170,90}
+\definecolor{nivelcritico}{RGB}{255,90,90}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=azulmat,
+  urlcolor=azulmat,
+  citecolor=azulmat
+}
+
+% ----------------- Cajas de contenido -----------------
+\newtcolorbox{instruccion}[1][Instrucciones]{%
+  enhanced, breakable,
+  colback=amarillosuave, colframe=orange!75!black,
+  fonttitle=\bfseries, title=#1
+}
+
+\newtcolorbox{informacion}[1][Información]{%
+  enhanced, breakable,
+  colback=azulsuave, colframe=azulmat,
+  fonttitle=\bfseries, title=#1
+}
+
+% Caja vacía para completar (texto libre)
+\newtcolorbox{campolibre}[1][2cm]{%
+  enhanced, breakable,
+  colback=white, colframe=griscaja!80!black,
+  height=#1, valign=top, boxrule=0.5pt
+}
+
+% ----------------- Encabezado y pie -----------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Plantilla de Matriz de Riesgos --- A03}
+\fancyhead[R]{\small Seguridad Aplicada a Sistemas de Información}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ----------------- Formato de títulos -----------------
+\titleformat{\section}{\large\bfseries\color{azulmat}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{azulmat!80!black}}{\thesubsection.}{0.6em}{}
+
+% ----------------- Portada -----------------
+\title{%
+  \rule{\textwidth}{1pt}\\[0.4cm]
+  \textbf{\Large Plantilla de Matriz de Riesgos}\\[0.2cm]
+  \large Actividad A03 --- Administración de Riesgos\\[0.1cm]
+  \normalsize Análisis y Gestión de Riesgos en Sistemas de Información\\[0.2cm]
+  \rule{\textwidth}{1pt}\\[0.4cm]
+  \normalsize Seguridad Aplicada a Sistemas de Información\\
+  Licenciatura en Sistemas de Información --- Facultad de Informática y Diseño\\
+  Docente: Ing.\ Rodrigo Atilio Elgueta\\[0.2cm]
+  \small Ciclo Académico Vigente
+}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\tableofcontents
+\newpage
+
+% =========================================================
+\begin{instruccion}[Cómo usar esta plantilla]
+Esta plantilla es el instrumento formal para desarrollar la \textbf{Actividad A03 --- Administración de Riesgos}. Completá cada sección con la información de la empresa real, ficticia o caso del Trabajo Integrador que hayas elegido.
+
+\textbf{Recomendaciones:}
+\begin{itemize}[leftmargin=*]
+  \item Completá los campos de la Sección~\ref{sec:datos} antes de iniciar el análisis.
+  \item Asigná un \textbf{código (ID)} único a cada activo, amenaza y riesgo para poder referenciarlos en las tablas.
+  \item Usá las escalas de las Secciones~\ref{sec:escalas} para valorar probabilidad e impacto de forma consistente.
+  \item Para cada riesgo identificado, calculá el \textbf{valor de riesgo} (\(Probabilidad \times Impacto\)) y clasificá el nivel según la Sección~\ref{sec:niveles}.
+  \item Proponé salvaguardas y calculá el \textbf{riesgo residual} (Sección~\ref{sec:tratamiento}).
+  \item Subí el informe completado a la carpeta del Trabajo Integrador en Google Drive, otorgando permisos de comentario a \texttt{era.profe@gmail.com}.
+\end{itemize}
+\end{instruccion}
+
+% =========================================================
+\section{Datos Generales}\label{sec:datos}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{} p{5cm} X @{}}
+\toprule
+\textbf{Nombre de la empresa / organización} & \\
+\midrule
+\textbf{Rubro / Industria} & \\
+\midrule
+\textbf{Tamaño (empleados / facturación)} & \\
+\midrule
+\textbf{Alumno(s) / Grupo} & \\
+\midrule
+\textbf{Legajo(s)} & \\
+\midrule
+\textbf{Fecha de elaboración} & \\
+\midrule
+\textbf{Responsable del análisis} & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =========================================================
+\section{Objetivo y Alcance del Análisis}
+
+\begin{campolibre}[2.5cm]
+\end{campolibre}
+
+\textbf{Alcance:} (sistemas, procesos, sedes o áreas incluidas en el análisis)
+
+\begin{campolibre}[2cm]
+\end{campolibre}
+
+% =========================================================
+\section{Inventario y Clasificación de Activos}
+
+Asigná un código único a cada activo (ej.: A01, A02\ldots). La clasificación de la información puede ser: \textit{Pública, Interna, Confidencial, Restringida}.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{} >{\centering\arraybackslash}p{1cm} X >{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{1.8cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Descripción del Activo} & \textbf{Tipo} & \textbf{Responsable} & \textbf{Clasificación} & \textbf{Criticidad} \\
+\midrule
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+ & & & & & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textit{Tipos de activo: Información / Software / Hardware / Red / Humano / Imagen. Criticidad: Baja / Media / Alta.}
+
+% =========================================================
+\section{Identificación de Amenazas y Vulnerabilidades}
+
+Asigná un código único a cada amenaza (ej.: T01, T02\ldots). El tipo puede ser: \textit{Natural, Accidental, Intencional}.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{} >{\centering\arraybackslash}p{1cm} >{\centering\arraybackslash}p{1.8cm} X >{\raggedright\arraybackslash}p{2.2cm} X @{}}
+\toprule
+\textbf{ID} & \textbf{Activo (ID)} & \textbf{Descripción de la Amenaza} & \textbf{Tipo} & \textbf{Vulnerabilidad Asociada} \\
+\midrule
+ & & & & \\
+ & & & & \\
+ & & & & \\
+ & & & & \\
+ & & & & \\
+ & & & & \\
+ & & & & \\
+ & & & & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =========================================================
+\section{Escalas de Valoración}\label{sec:escalas}
+
+\subsection{Escala de Probabilidad}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{} c p{2.8cm} X @{}}
+\toprule
+\textbf{Valor} & \textbf{Nivel} & \textbf{Descripción} \\
+\midrule
+1 & Raro & El evento solo ocurriría en circunstancias excepcionales. \\
+\midrule
+2 & Improbable & Podría ocurrir, pero no se espera que suceda. \\
+\midrule
+3 & Posible & Existe una posibilidad real de que ocurra. \\
+\midrule
+4 & Probable & Es muy probable que ocurra en algún momento. \\
+\midrule
+5 & Casi seguro & Se espera que ocurra frecuentemente / ha ocurrido recientemente. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Escala de Impacto}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{} c p{2.8cm} X @{}}
+\toprule
+\textbf{Valor} & \textbf{Nivel} & \textbf{Descripción} \\
+\midrule
+1 & Insignificante & Impacto mínimo, sin consecuencias operativas ni económicas relevantes. \\
+\midrule
+2 & Menor & Alteración leve de la operación, costo bajo. \\
+\midrule
+3 & Moderado & Impacto operativo y económico apreciable, recuperable. \\
+\midrule
+4 & Mayor & Impacto significativo, pérdida de operación o datos, costo alto. \\
+\midrule
+5 & Catastrófico & Paralización total, pérdida crítica de datos, daño reputacional o legal severo. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =========================================================
+\section{Matriz de Calor (Probabilidad × Impacto)}
+
+La matriz 5×5 relaciona la \textbf{probabilidad} (eje vertical) con el \textbf{impacto} (eje horizontal). Cada celda muestra el valor de riesgo resultante (\(P \times I\)) y su color indica el nivel.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.9}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{@{} c c | c c c c c @{}}
+\multicolumn{2}{c}{} & \multicolumn{5}{c}{\textbf{IMPACTO} $\longrightarrow$} \\
+\multicolumn{2}{c}{} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\
+\cline{3-7}
+\multirow{5}{*}{\rotatebox[origin=c]{90}{\textbf{PROBABILIDAD} $\longrightarrow$}}
+ & \textbf{5} & \cellcolor{nivelmedio}5 & \cellcolor{nivelalto}10 & \cellcolor{nivelalto}15 & \cellcolor{nivelcritico}20 & \cellcolor{nivelcritico}25 \\
+ & \textbf{4} & \cellcolor{nivelbajo}4 & \cellcolor{nivelmedio}8 & \cellcolor{nivelalto}12 & \cellcolor{nivelcritico}16 & \cellcolor{nivelcritico}20 \\
+ & \textbf{3} & \cellcolor{nivelbajo}3 & \cellcolor{nivelmedio}6 & \cellcolor{nivelmedio}9 & \cellcolor{nivelalto}12 & \cellcolor{nivelalto}15 \\
+ & \textbf{2} & \cellcolor{nivelbajo}2 & \cellcolor{nivelbajo}4 & \cellcolor{nivelmedio}6 & \cellcolor{nivelmedio}8 & \cellcolor{nivelalto}10 \\
+ & \textbf{1} & \cellcolor{nivelbajo}1 & \cellcolor{nivelbajo}2 & \cellcolor{nivelbajo}3 & \cellcolor{nivelbajo}4 & \cellcolor{nivelmedio}5 \\
+\cline{3-7}
+\end{tabular}
+\end{center}
+
+\subsection{Niveles de Riesgo}\label{sec:niveles}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{} p{3cm} p{2.5cm} p{3.5cm} X @{}}
+\toprule
+\textbf{Nivel} & \textbf{Rango (P×I)} & \textbf{Color} & \textbf{Acción requerida} \\
+\midrule
+\cellcolor{nivelbajo} \textbf{Bajo} & 1 -- 4 & Verde & Monitorear. Puede aceptarse. \\
+\cellcolor{nivelmedio} \textbf{Medio} & 5 -- 9 & Amarillo & Plan de acción a mediano plazo. \\
+\cellcolor{nivelalto} \textbf{Alto} & 10 -- 15 & Naranja & Tratamiento prioritario a corto plazo. \\
+\cellcolor{nivelcritico} \textbf{Crítico} & 16 -- 25 & Rojo & Acción inmediata. Escalar a dirección. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =========================================================
+\section{Evaluación de Riesgos}\label{sec:evaluacion}
+
+Asigná un código único a cada riesgo (ej.: R01, R02\ldots). Calculá el valor como \(Probabilidad \times Impacto\) y clasificá el nivel según la tabla anterior.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{} >{\centering\arraybackslash}p{0.8cm} >{\centering\arraybackslash}p{1.2cm} >{\centering\arraybackslash}p{1.6cm} >{\centering\arraybackslash}p{1.1cm} >{\centering\arraybackslash}p{1.3cm} >{\centering\arraybackslash}p{1.1cm} >{\centering\arraybackslash}p{1.4cm} X @{}}
+\toprule
+\textbf{ID} & \textbf{Activo} & \textbf{Amenaza} & \textbf{Prob.} & \textbf{Impacto} & \textbf{Valor} & \textbf{Nivel} & \textbf{Justificación breve} \\
+\midrule
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =========================================================
+\section{Tratamiento de Riesgos y Riesgo Residual}\label{sec:tratamiento}
+
+Para cada riesgo, definí la estrategia de tratamiento:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Mitigar:} implementar salvaguardas para reducir probabilidad o impacto.
+  \item \textbf{Transferir:} pasar el riesgo a un tercero (seguros, outsourcing).
+  \item \textbf{Aceptar:} asumir el riesgo conscientemente.
+  \item \textbf{Evitar:} discontinuar la actividad que lo genera.
+\end{itemize}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{} >{\centering\arraybackslash}p{1.3cm} >{\raggedright\arraybackslash}p{1.7cm} X >{\raggedright\arraybackslash}p{1.7cm} >{\centering\arraybackslash}p{1cm} >{\centering\arraybackslash}p{1cm} >{\centering\arraybackslash}p{1cm} >{\centering\arraybackslash}p{1.3cm} @{}}
+\toprule
+\textbf{Riesgo} & \textbf{Estrategia} & \textbf{Salvaguardas propuestas} & \textbf{Tipo salv.} & \textbf{Prob. resid.} & \textbf{Imp. resid.} & \textbf{Val. resid.} & \textbf{Nivel resid.} \\
+\midrule
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+ & & & & & & & \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textit{Tipo de salvaguarda: Técnica / Física / Administrativa. El nivel residual se clasifica con la misma tabla de la Sección~\ref{sec:niveles}.}
+
+% =========================================================
+\section{Resumen de Resultados}
+
+Distribución de los riesgos identificados por nivel (completar con la cantidad de riesgos en cada categoría):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{0.85\textwidth}{@{} p{4cm} p{3.5cm} X @{}}
+\toprule
+\textbf{Nivel} & \textbf{Cantidad de riesgos} & \textbf{\% del total} \\
+\midrule
+\cellcolor{nivelcritico} Crítico & & \\
+\cellcolor{nivelalto} Alto & & \\
+\cellcolor{nivelmedio} Medio & & \\
+\cellcolor{nivelbajo} Bajo & & \\
+\midrule
+\textbf{Total} & & 100\% \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Conclusiones y Recomendaciones}
+
+\begin{campolibre}[4cm]
+\end{campolibre}
+
+\section{Declaración de Buenas Prácticas}
+
+\begin{informacion}[Compromiso profesional]
+Como estudiante de Seguridad Aplicada a Sistemas de Información, declaro que el presente análisis de riesgos fue elaborado aplicando las buenas prácticas de la disciplina, con criterio ético, fundamentos técnicos y respetando el marco normativo vigente.
+\end{informacion}
+
+\vspace{1.2cm}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{@{} X X @{}}
+\rule{6cm}{0.4pt} & \rule{6cm}{0.4pt} \\
+Firma del alumno/a & Fecha \\
+\end{tabularx}
+\end{center}
+
+% =========================================================
+\section{Referencias Bibliográficas}
+
+\begin{itemize}[leftmargin=*]
+  \item Chicano Tejada, E. (2023). \textit{Auditoría de seguridad informática. IFCT0109} (2.ª ed.). IC Editorial --- eLibro.
+  \item ISO/IEC (2005). \textit{Information security management 27001}.
+  \item ISO/IEC (2018). \textit{ISO/IEC 27005: Information security risk management}.
+  \item NIST (2012). \textit{Guide for Conducting Risk Assessments (SP 800-30 Rev. 1)}.
+  \item OWASP Risk Rating Methodology: \url{https://owasp.org/www-community/OWASP_Risk_Rating_Methodology}
+\end{itemize}
+
+\end{document}

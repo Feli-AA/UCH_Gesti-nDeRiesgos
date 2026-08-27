@@ -1,11 +1,28 @@
-# UCH_GestiónDeRiesgos
-UCH - Seguridad Gestión de Riesgos
+# UCH - Seguridad Gestión de Riesgos
+> `#UCH_GestiónDeRiesgos`
 
-Este repo público es solo para entregas de estudiantes
+Este repositorio público está destinado únicamente para las entregas de los estudiantes.
 
-Política de branches y resolución de conflictos
+---
 
-Cada estudiante es responsable exclusivo de su branch.
-Si por error hacés un commit sobre main o sobre la branch de otro compañero, avisá inmediatamente al docente.
-No se permite hacer git push --force sobre ninguna branch compartida.
-Ante dudas sobre Git, consultar al docente antes de hacer operaciones destructivas (reset, rebase, push -f).
+## 📌 Checklist de Auto-Revisión
+*Por favor, marca las casillas correspondientes antes de realizar tu entrega:*
+
+- [ ] No hay credenciales en el repositorio.
+- [ ] El archivo `.gitignore` está correctamente configurado.
+- [ ] Las capturas de pantalla no muestran datos sensibles.
+- [ ] Los archivos `.sql` o dumps no están subidos.
+- [ ] El informe está en un formato legible.
+- [ ] El reporte ejecutivo está completo.
+- [ ] Los mensajes de commit son descriptivos.
+- [ ] Mi branch está actualizada y funciona correctamente.
+
+---
+
+## ⚠️ Política de Branches y Resolución de Conflictos
+
+- **Responsabilidad:** Cada estudiante es responsable exclusivo de su propia branch.
+- **Errores de Commit:** Si por error haces un commit sobre `main` o sobre la branch de otro compañero, avisa inmediatamente al docente.
+- **Restricciones:** No se permite hacer `git push --force` sobre ninguna branch compartida.
+- **Soporte:** Ante dudas sobre Git, consulta al docente antes de realizar operaciones destructivas (`reset`, `rebase`, `push -f`).
+

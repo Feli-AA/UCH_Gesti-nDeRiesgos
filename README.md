@@ -1,4 +1,4 @@
-# UCH - Seguridad Gestión de Riesgos
+# UCH - Seguridad - Gestión de Riesgos
 > `#UCH_GestiónDeRiesgos`
 
 Este repositorio público está destinado únicamente para las entregas de los estudiantes.

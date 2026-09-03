@@ -16,8 +16,6 @@ Para reproducir este entorno de SimpleRisk utilizando Docker Compose, siga estos
 
 La gestión de usuarios, roles y controles de acceso se encuentra documentada en el archivo `configuracion/usuarios.md`.
 
-**Verificación**
-girasol
 
 **Checklist de Auto-Revisión**
 - [x] No hay credenciales en el repositorio.
@@ -28,3 +26,5 @@ girasol
 - [x] El reporte ejecutivo está completo.
 - [x] Los mensajes de commit son descriptivos.
 - [x] Mi branch está actualizada y funciona correctamente.
+
+**GIRASOL** (jajaja que gracioso)

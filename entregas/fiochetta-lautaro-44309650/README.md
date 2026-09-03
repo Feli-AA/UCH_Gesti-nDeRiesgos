@@ -5,7 +5,7 @@
 - **Nombre completo:** Lautaro Fiochetta
 - **LU:** 44309650
 - **Email institucional:** fiochettalautaro@uch.edu.ar
-- **Comisión:** [COMPLETAR]
+- **Comisión:** G
 - **Branch de esta entrega:** `entrega/fiochetta-lautaro-44309650`
 
 ## Cómo levantar el entorno

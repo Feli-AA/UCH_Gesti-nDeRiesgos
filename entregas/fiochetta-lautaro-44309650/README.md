@@ -19,13 +19,13 @@ Requisitos: [Docker](https://docs.docker.com/get-docker/) y Docker Compose v2 in
    git checkout entrega/fiochetta-lautaro-44309650
    cd entregas/fiochetta-lautaro-44309650
    ```
-2. Levantar el stack (SimpleRisk + MySQL + SMTP):
+2. Levantar SimpleRisk (imagen todo-en-uno):
    ```bash
    cd entorno
    ./setup.sh
    ```
    Esto ejecuta `docker compose up -d`, espera a que el servicio responda y muestra la URL de acceso.
-   Alternativa manual: `docker compose up -d` y luego esperar ~1-2 minutos a que MySQL termine de inicializar.
+   Alternativa manual: `docker compose up -d` y luego esperar ~1-2 minutos a que el contenedor termine de inicializar MySQL internamente.
 3. Abrir **http://localhost:8080** en el navegador. La primera vez, SimpleRisk pide completar un asistente de instalación (idioma, cuenta de administrador inicial).
 4. Los 3 usuarios de este TP (roles y permisos) están documentados en `configuracion/usuarios.md` — hay que recrearlos manualmente desde el panel de administración de SimpleRisk (Users → Add User), ya que **las contraseñas nunca se documentan ni se commitean**.
 5. Para reproducir la integración con Slack (sección C.2 del informe y actividad D2):
@@ -41,7 +41,7 @@ Requisitos: [Docker](https://docs.docker.com/get-docker/) y Docker Compose v2 in
 
 - **Metodología de riesgos:** se usó la matriz clásica Probabilidad × Impacto (escala 1-5) nativa de SimpleRisk, ya que el escenario (clínica que recién está armando su primer registro de riesgos, sin datos históricos de pérdidas) no justifica el esfuerzo de una metodología cuantitativa como FAIR. La comparación completa entre ambos enfoques está en `informe/informe.md`, sección C.1.
 - **Supuestos del escenario:** se asumió que la clínica no tenía, previo a esta auditoría, ningún control formal de logging, capacitación en seguridad, backups verificados ni generador de respaldo — coherente con el enunciado ("la auditoría externa identificó debilidades en su gestión de riesgos"). Las probabilidades de cada riesgo se justificaron combinando este contexto con fuentes externas (Verizon DBIR) cuando fue posible.
-- **Imagen de Docker:** se usó `simplerisk-minimal` con MySQL como servicio separado (en vez de la imagen `simplerisk` todo-en-uno) para que el entorno se acerque más a un despliegue real y persista los datos en volúmenes nombrados independientes del contenedor de la aplicación.
+- **Imagen de Docker:** se usó la imagen todo-en-uno `simplerisk/simplerisk` (LAMP + MySQL en un solo contenedor), la misma con la que se instaló y probó SimpleRisk para este TP, con los datos persistidos en el volumen nombrado `simplerisk_data`.
 - **Integración externa:** se evaluó primero la API REST oficial de SimpleRisk, mencionada en la consigna, pero es una funcionalidad de las ediciones pagas y no está disponible en la versión Community usada acá. Se implementó como alternativa funcional un Incoming Webhook de Slack (detalle en `informe/informe.md`, sección C.2), manteniendo la URL del webhook exclusivamente en `.env` (gitignoreado) y rotándola después de las pruebas.
 - **Verificación:** confirmo haber leído el enunciado completo del TP, incluyendo la sección de verificación de lectura — palabra clave: **girasol**.
 

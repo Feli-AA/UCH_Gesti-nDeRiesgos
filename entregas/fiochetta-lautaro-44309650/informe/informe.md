@@ -10,11 +10,9 @@
 
 ### A.1 Instalación reproducible
 
-SimpleRisk se despliega localmente con Docker Compose, usando la imagen oficial `simplerisk/simplerisk-minimal` (mantenida por el equipo de SimpleRisk) junto a un contenedor de MySQL 8.0 y un contenedor SMTP para el envío de notificaciones internas de la propia herramienta.
+SimpleRisk se despliega localmente con Docker Compose, usando la imagen oficial todo-en-uno `simplerisk/simplerisk` (mantenida por el equipo de SimpleRisk), que incluye LAMP + MySQL en un solo contenedor.
 
-Archivos relevantes: `entorno/docker-compose.yml` y `entorno/setup.sh`. El proceso completo (levantar el stack, esperar a que el servicio responda, e indicar la URL de acceso) queda automatizado en `setup.sh`, y los pasos manuales equivalentes están documentados en el `README.md` de esta entrega.
-
-No se usó la imagen `simplerisk` completa (que trae LAMP + MySQL embebidos en un solo contenedor) para poder separar la base de datos como servicio independiente, lo que se acerca más a un despliegue real y facilita la persistencia de datos vía volúmenes nombrados (`simplerisk_data`, `mysql_data`).
+Archivos relevantes: `entorno/docker-compose.yml` y `entorno/setup.sh`. El proceso completo (levantar el contenedor, esperar a que el servicio responda, e indicar la URL de acceso) queda automatizado en `setup.sh`, y los pasos manuales equivalentes están documentados en el `README.md` de esta entrega. Los datos persisten en el volumen nombrado `simplerisk_data`, montado sobre `/var/www/html` dentro del contenedor.
 
 ### A.2 Usuarios y permisos
 

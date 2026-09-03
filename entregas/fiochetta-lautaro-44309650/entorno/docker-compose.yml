@@ -1,51 +1,29 @@
 # entorno/docker-compose.yml
 # Entorno reproducible de SimpleRisk para el TP de Seguridad de Sistemas.
-# Basado en el stack.yml oficial de https://github.com/simplerisk/docker
-# (imagen simplerisk-minimal, que requiere una base de datos externa).
+#
+# Usa la imagen todo-en-uno "simplerisk/simplerisk" (LAMP + MySQL + SimpleRisk
+# en un solo contenedor). Es la misma imagen usada para la instalación real de
+# este TP (confirmado con `docker inspect simplerisk --format "{{.Config.Image}}"`),
+# por eso este archivo la refleja tal cual en vez de la variante "minimal" con
+# base de datos separada.
 #
 # Uso:
 #   cd entorno
 #   docker compose up -d
-#   Luego abrir http://localhost:8080 (ver README.md para el usuario admin inicial)
-#
-# Nota de seguridad: las contraseñas de este archivo son SOLO para desarrollo
-# local (nunca se exponen a internet). No son las credenciales reales usadas
-# dentro de SimpleRisk (ver configuracion/usuarios.md), que nunca se documentan.
+#   Luego abrir http://localhost:8080 (asistente de instalación inicial)
 
 version: "3.6"
 
 services:
   simplerisk:
-    image: simplerisk/simplerisk-minimal:20260828-001
-    container_name: tp-simplerisk
+    image: simplerisk/simplerisk:latest
+    container_name: simplerisk
     restart: unless-stopped
-    depends_on:
-      - mysql
-    environment:
-      - DB_SETUP=automatic
-      - DB_SETUP_PASS=simplerisk_setup_demo
-      - SIMPLERISK_DB_HOSTNAME=mysql
     ports:
       - "8080:80"
       - "8443:443"
     volumes:
-      - simplerisk_data:/var/www/html/uploads
-
-  mysql:
-    image: mysql:8.0
-    container_name: tp-simplerisk-mysql
-    restart: unless-stopped
-    command: mysqld --sql_mode="NO_ENGINE_SUBSTITUTION"
-    environment:
-      - MYSQL_ROOT_PASSWORD=simplerisk_setup_demo
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-  smtp:
-    image: namshi/smtp
-    container_name: tp-simplerisk-smtp
-    restart: unless-stopped
+      - simplerisk_data:/var/www/html
 
 volumes:
   simplerisk_data:
-  mysql_data:

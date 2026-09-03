@@ -61,28 +61,28 @@ Las probabilidades se justificaron con una combinación de datos del propio cont
 Se definieron 3 planes de acción para los 3 riesgos de mayor nivel (score más alto):
 
 **Plan 1 — Control de acceso basado en roles (RBAC) + logging de accesos**
-- Riesgo asociado: Acceso no autorizado a historia clínica
+- Riesgo asociado: Riesgo 1 — Acceso no autorizado a historia clínica
 - Descripción: implementar control de acceso granular por rol en el sistema de Historia Clínica Electrónica, con registro (log) inmutable de cada acceso a datos de pacientes y revisión mensual de dichos logs por el Responsable de Seguridad.
-- Fecha de vencimiento: 15/12/2026
+- Fecha de vencimiento: 30/11/2026
 - Responsable: Jefe de Sistemas
-- Presupuesto estimado: $850.000 (ARS, cifra de referencia para este TP)
+- Presupuesto estimado: USD 3.500
 - Estado inicial: No iniciado
 
 **Plan 2 — Programa de concientización anti-phishing + MFA**
-- Riesgo asociado: Phishing a personal administrativo
-- Descripción: capacitación trimestral obligatoria en concientización de seguridad para todo el personal administrativo, sumado a la implementación de autenticación multifactor (MFA) en el correo institucional y en el acceso al sistema HCE.
-- Fecha de vencimiento: 30/11/2026
-- Responsable: Jefe de Sistemas / RRHH
-- Presupuesto estimado: $420.000 (ARS)
+- Riesgo asociado: Riesgo 8 — Phishing a personal administrativo
+- Descripción: capacitación obligatoria en concientización de seguridad para todo el personal administrativo, sumado a la implementación de autenticación multifactor (MFA) en el correo institucional y en el acceso al sistema HCE.
+- Fecha de vencimiento: 31/10/2026
+- Responsable: RRHH / Jefe de Sistemas
+- Presupuesto estimado: USD 1.200
 - Estado inicial: No iniciado
 
-**Plan 3 — Generador eléctrico de respaldo + plan de contingencia manual**
-- Riesgo asociado: Disponibilidad de datos — caída temporal del sistema
-- Descripción: adquisición e instalación de un generador eléctrico de respaldo con autonomía mínima de 8 horas, más la redacción de un protocolo de contingencia manual en papel para continuidad asistencial durante cortes prolongados.
-- Fecha de vencimiento: 28/02/2027
+**Plan 3 — Generador eléctrico de respaldo**
+- Riesgo asociado: Riesgo 4 — Disponibilidad de datos — caída temporal del sistema
+- Descripción: adquisición e instalación de un generador eléctrico de respaldo, más la redacción de un protocolo de contingencia manual para continuidad asistencial durante cortes prolongados.
+- Fecha de vencimiento: 15/12/2026
 - Responsable: Jefe de Sistemas
-- Presupuesto estimado: $3.100.000 (ARS)
-- Estado inicial: En cotización
+- Presupuesto estimado: USD 8.000
+- Estado inicial: No iniciado
 
 Estos 3 planes se cargaron en SimpleRisk asociados a sus respectivos riesgos, en el módulo de Risk Management → Mitigations/Action Plans.
 

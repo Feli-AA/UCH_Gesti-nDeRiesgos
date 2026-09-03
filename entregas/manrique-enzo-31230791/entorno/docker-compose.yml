@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  simplerisk:
+    image: simplerisk/simplerisk:latest
+    container_name: simplerisk
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    # Nota: SimpleRisk maneja su propia DB interna en este contenedor all-in-one por defecto.

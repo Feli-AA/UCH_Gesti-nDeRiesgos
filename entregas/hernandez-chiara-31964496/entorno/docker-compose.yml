@@ -19,7 +19,6 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      DB_SETUP: automatic
       DB_SETUP_PASS: ${MYSQL_ROOT_PASSWORD}
       SIMPLERISK_DB_HOSTNAME: mysql
       SIMPLERISK_DB_USERNAME: simplerisk

@@ -1,0 +1,123 @@
+\documentclass[11pt,a4paper]{article}
+
+% Paquetes esenciales
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{helvet}
+
+% Configuración de fuente y formato
+\renewcommand{\familydefault}{\sfdefault}
+\definecolor{primary}{RGB}{44, 62, 80}
+\definecolor{critical}{RGB}{192, 57, 43}
+\definecolor{high}{RGB}{211, 84, 0}
+\definecolor{graybg}{RGB}{242, 242, 242}
+
+\titleformat{\section}{\Large\bfseries\color{primary}}{\thesection}{1em}{}[\titlerule]
+\titleformat{\subsection}{\large\bfseries\color{primary}}{\thesubsection}{1em}{}
+
+\begin{document}
+
+% Encabezado
+\begin{center}
+    {\Huge \textbf{\color{primary}Reporte Ejecutivo de Riesgos Tecnológicos}}\\[0.5cm]
+    {\large \textbf{Destinatario:} Directorio de la Clínica}\\[0.2cm]
+    {\large \textbf{Fecha:} 5 de Septiembre de 2026}\\[0.5cm]
+\end{center}
+
+\vspace{0.5cm}
+
+% 1. Resumen Ejecutivo
+\section*{1. Resumen Ejecutivo}
+El presente informe detalla el estado actual de la postura de ciberseguridad y continuidad operativa de la clínica. Tras una evaluación exhaustiva de los activos tecnológicos, se identificaron vulnerabilidades críticas que exponen a la institución a interrupciones severas en la atención de pacientes, pérdidas financieras directas y sanciones legales por incumplimiento de la Ley 25.326 de Protección de los Datos Personales. La estrategia prioritaria exige la adopción inmediata de medidas de mitigación tecnológicas (Backups inmutables, MFA) y procedimentales (Control de accesos) para neutralizar los vectores de ataque más probables, garantizando la integridad de las historias clínicas y la facturación en tiempo real.
+
+\vspace{0.5cm}
+
+% 2. Inventario de Activos
+\section*{2. Inventario y Clasificación de Activos Críticos}
+A continuación se detallan los activos tecnológicos fundamentales afectados por los riesgos identificados, clasificados según su nivel de criticidad.
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|c|c|c|c|}
+\hline
+\rowcolor{primary} \textbf{\color{white}ID} & \textbf{\color{white}Descripción del Activo} & \textbf{\color{white}Tipo} & \textbf{\color{white}Responsable} & \textbf{\color{white}Clasificación} & \textbf{\color{white}Criticidad} \\ \hline
+A01 & Base de datos de Historias Clínicas & Información & Jefatura Médica & Confidencial & Alta \\ \hline
+A02 & Sistema de Facturación & Software & Ger. Financiera & Restringida & Alta \\ \hline
+A03 & Personal del área de Facturación & Humano & Ger. Financiera & Interna & Media \\ \hline
+A04 & Sistema de Gestión Hospitalaria (HIS) & Software & Gerencia TI & Confidencial & Alta \\ \hline
+A05 & Enlace principal a Internet (ISP) & Red & Gerencia TI & Pública & Alta \\ \hline
+A06 & Servidores físicos del Data Center & Hardware & Gerencia TI & Restringida & Alta \\ \hline
+\end{tabularx}
+
+\vspace{0.8cm}
+
+% 3. Top 5 Riesgos por Nivel
+\section*{3. Top 5 Riesgos por Nivel}
+Los siguientes riesgos representan la mayor amenaza para la organización, calculados en base a su impacto (1-5) y probabilidad (1-5).
+
+\vspace{0.3cm}
+\noindent
+\begin{tabularx}{\textwidth}{|c|X|c|c|c|}
+\hline
+\rowcolor{primary} \textbf{\color{white}\#} & \textbf{\color{white}Riesgo Identificado} & \textbf{\color{white}Impacto} & \textbf{\color{white}Probabilidad} & \textbf{\color{white}Puntaje} \\ \hline
+1 & \textbf{Infección por Ransomware} en bases de datos. & 5 & 4 & \cellcolor{critical!30}\textbf{20 (Crítico)} \\ \hline
+2 & \textbf{Fraude financiero por Phishing} a facturación. & 4 & 4 & \cellcolor{critical!30}\textbf{16 (Crítico)} \\ \hline
+3 & \textbf{Exposición de datos} por exceso de privilegios. & 4 & 3 & \cellcolor{high!30}\textbf{12 (Alto)} \\ \hline
+4 & \textbf{Interrupción de Obras Sociales} por corte de ISP. & 4 & 3 & \cellcolor{high!30}\textbf{12 (Alto)} \\ \hline
+5 & \textbf{Apagón del Data Center} por falla eléctrica. & 5 & 2 & \cellcolor{high!30}\textbf{10 (Alto)} \\ \hline
+\end{tabularx}
+
+\vspace{0.8cm}
+
+% 4. Estado de los Planes de Acción
+\section*{4. Estado de los Planes de Acción (Riesgos Altos/Críticos)}
+Se han diagramado tres planes de mitigación inmediatos para contener las amenazas más urgentes.
+
+\vspace{0.3cm}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Plan 1: Arquitectura de Backups Inmutables y EDR (Ransomware)}
+    \begin{itemize}
+        \item \textbf{Estado:} Planificado.
+        \item \textbf{Vencimiento:} 30/10/2026.
+        \item \textbf{Presupuesto:} \$5,500 USD.
+        \item \textbf{Responsable:} Gerencia de TI.
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{Plan 2: MFA Obligatorio y Concientización (Phishing)}
+    \begin{itemize}
+        \item \textbf{Estado:} En curso (Evaluación de proveedores).
+        \item \textbf{Vencimiento:} 15/10/2026.
+        \item \textbf{Presupuesto:} \$1,200 USD.
+        \item \textbf{Responsable:} Gerencia Financiera.
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{Plan 3: Transición a RBAC en Recepción (Exposición de Datos)}
+    \begin{itemize}
+        \item \textbf{Estado:} Planificado.
+        \item \textbf{Vencimiento:} 15/11/2026.
+        \item \textbf{Presupuesto:} \$0 (Costos operativos internos).
+        \item \textbf{Responsable:} Jefatura de Recepción.
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.5cm}
+
+% 5. Recomendaciones Prioritarias
+\section*{5. Recomendaciones Prioritarias}
+Para asegurar la viabilidad operativa de la clínica en el corto plazo, se emiten las siguientes recomendaciones vinculantes al Directorio:
+
+\begin{enumerate}
+    \item \textbf{Aprobación Presupuestaria Inmediata:} Liberar los fondos estimados (\$6,700 USD) para ejecutar los Planes 1 y 2, cerrando las brechas críticas que actualmente permiten la ejecución de secuestros de datos y estafas financieras.
+    \item \textbf{Adopción de Políticas Zero Trust:} Eliminar definitivamente el uso de cuentas genéricas compartidas en los sistemas de gestión hospitalaria (HIS), exigiendo responsabilidad individual en el manejo de datos de pacientes para cumplir con normativas legales.
+    \item \textbf{Redundancia de Infraestructura Crítica:} Iniciar la contratación de un Proveedor de Servicios de Internet (ISP) secundario para garantizar la facturación y validación ininterrumpida con las Obras Sociales.
+\end{enumerate}
+
+\end{document}

@@ -720,6 +720,64 @@ Las capturas correspondientes se encuentran en `informe/capturas/`:
 - `09_riesgo_R04.png`: detalle del riesgo crítico de phishing.
 - `10_riesgos.png`: registro general de los diez riesgos definidos para la clínica.
 
+## Planes de acción
+
+Se crearon tres planes de acción asociados a riesgos clasificados como altos. Los planes fueron registrados en SimpleRisk con estrategia de mitigación, responsables diferenciados, fechas de vencimiento, presupuesto estimado y estado inicial.
+
+SimpleRisk representa el presupuesto mediante rangos generales. Por ese motivo, el rango seleccionado en los tres casos fue `$0 to $100,000`, mientras que el importe estimado específico se incorporó en los requisitos de cada plan.
+
+El estado inicial se registró como `Mitigation Planned` con un porcentaje de avance del 0%, lo que indica que los planes fueron definidos pero todavía no comenzaron a ejecutarse.
+
+### PA01 — Implementación de respaldos 3-2-1 y pruebas de restauración
+
+* **Riesgo asociado:** R07 — Imposibilidad de recuperar la información desde respaldos.
+* **Descripción:** implementar una arquitectura de respaldo que permita recuperar las historias clínicas y los sistemas críticos después de un ataque, error o falla de infraestructura. Se mantendrán tres copias de la información, en dos medios diferentes, con al menos una copia aislada o inmutable.
+* **Estrategia:** Mitigar.
+* **Fecha de vencimiento:** 31/10/2026.
+* **Responsable:** Frank Castle — Jefatura de Infraestructura y TI.
+* **Esfuerzo estimado:** Significant.
+* **Rango de costo en SimpleRisk:** `$0 to $100,000`.
+* **Presupuesto estimado:** USD 8.000.
+* **Estado inicial:** Mitigation Planned — 0% de avance.
+
+Las actividades principales incluyen separar las credenciales de respaldo, cifrar las copias, definir objetivos de recuperación, realizar pruebas trimestrales de restauración y monitorear automáticamente la ejecución de las copias.
+
+### PA02 — Trazabilidad y control de modificaciones en historias clínicas
+
+* **Riesgo asociado:** R03 — Alteración de información clínica.
+* **Descripción:** implementar controles que permitan identificar, reconstruir y verificar cada modificación realizada sobre diagnósticos, alergias, antecedentes, prescripciones y tratamientos.
+* **Estrategia:** Mitigar.
+* **Fecha de vencimiento:** 15/12/2026.
+* **Responsable:** Juliana Gattas — Dirección Médica.
+* **Esfuerzo estimado:** Significant.
+* **Rango de costo en SimpleRisk:** `$0 to $100,000`.
+* **Presupuesto estimado:** USD 12.000.
+* **Estado inicial:** Mitigation Planned — 0% de avance.
+
+El sistema deberá registrar el usuario, fecha, hora, valor anterior y nuevo valor de cada modificación. Los registros deberán protegerse contra alteraciones y los cambios sobre información clínica crítica requerirán confirmación adicional e historial de versiones.
+
+### PA03 — Continuidad de la integración con obras sociales
+
+* **Riesgo asociado:** R08 — Indisponibilidad de la integración con obras sociales.
+* **Descripción:** implementar medidas técnicas y contractuales que permitan mantener o recuperar la validación de coberturas, autorizaciones y facturación ante fallas del proveedor, de la integración o del enlace principal de Internet.
+* **Estrategia:** Mitigar.
+* **Fecha de vencimiento:** 15/11/2026.
+* **Responsable:** Constanza Romero — Gerencia Administrativa y Financiera.
+* **Esfuerzo estimado:** Significant.
+* **Rango de costo en SimpleRisk:** `$0 to $100,000`.
+* **Presupuesto estimado:** USD 7.500.
+* **Estado inicial:** Mitigation Planned — 0% de avance.
+
+Las actividades incluyen incorporar un segundo enlace de Internet con conmutación automática, establecer compromisos contractuales de disponibilidad y recuperación, implementar reintentos automáticos y documentar un procedimiento temporal de validación durante interrupciones.
+
+## Evidencias de los planes de acción
+
+Las capturas correspondientes se encuentran en `informe/capturas/`:
+
+* `11_plan_R07_respaldos.png`: plan de respaldos 3-2-1 y pruebas de restauración.
+* `12_plan_R03_integridad.png`: plan de trazabilidad y control de modificaciones.
+* `13_plan_R08_obras_sociales.png`: plan de continuidad de la integración con obras sociales.
+
 ## Fuentes de referencia
 
 * [Ley 25.326 de Protección de los Datos Personales](https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion).

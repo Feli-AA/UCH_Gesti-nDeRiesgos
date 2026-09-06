@@ -1,0 +1,40 @@
+services:
+  simplerisk:
+    image: simplerisk/simplerisk-minimal:20260519-001
+    environment:
+      DB_SETUP: automatic
+      DB_SETUP_PASS: ${MYSQL_ROOT_PASSWORD:?Definir MYSQL_ROOT_PASSWORD en .env}
+      SIMPLERISK_DB_HOSTNAME: mysql
+      SIMPLERISK_DB_PASSWORD: ${SIMPLERISK_DB_PASSWORD:?Definir SIMPLERISK_DB_PASSWORD en .env}
+      ADMIN_USERNAME: admin_clinica
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Definir ADMIN_PASSWORD en .env}
+      ADMIN_EMAIL: admin.clinica@example.invalid
+      ADMIN_NAME: Administrador de la Clinica
+    ports:
+      - "127.0.0.1:8088:80"
+      - "127.0.0.1:443:443"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    command: mysqld --sql_mode=NO_ENGINE_SUBSTITUTION
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Definir MYSQL_ROOT_PASSWORD en .env}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  smtp:
+    image: namshi/smtp
+    restart: unless-stopped
+
+volumes:
+  mysql-data:

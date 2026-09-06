@@ -1,0 +1,34 @@
+# Credenciales y secretos
+*.env
+.env.*
+config.php
+*credentials*
+*secrets*
+*.key
+*.pem
+
+# Bases de datos con datos reales
+*.sql
+*.dump
+
+# Binarios pesados
+*.ova
+*.vmdk
+*.vdi
+*.vhd
+*.iso
+*.zip
+*.tar.gz
+
+# Snapshots de VM
+snapshots/
+
+# OS e IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs con datos sensibles
+*.log
+logs/

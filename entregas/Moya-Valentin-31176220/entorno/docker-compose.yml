@@ -1,0 +1,16 @@
+services:
+  simplerisk:
+    image: simplerisk/simplerisk:latest
+    container_name: simplerisk
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+      - "8443:443"
+      - "3306:3306"
+    volumes:
+      - simplerisk_data:/var/www/simplerisk
+      - simplerisk_db:/var/lib/mysql
+
+volumes:
+  simplerisk_data:
+  simplerisk_db:

@@ -1,0 +1,208 @@
+{
+  "name": "workflow_alertas_riesgos",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ae63c649-928d-429c-a4f4-008adc55b406",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    r.id AS internal_id,\n    r.reference_id,\n    r.subject,\n    r.status,\n    rs.CLASSIC_likelihood AS likelihood,\n    rs.CLASSIC_impact AS impact,\n    ROUND(rs.calculated_risk, 1) AS score,\n    CASE\n        WHEN rs.calculated_risk >= 6.4 THEN 'Crítico'\n        WHEN rs.calculated_risk >= 4.0 THEN 'Alto'\n    END AS risk_level,\n    u.name AS owner,\n    CONCAT(\n        r.id,\n        '-',\n        ROUND(rs.calculated_risk, 1),\n        '-',\n        r.status\n    ) AS notification_key\nFROM risks AS r\nINNER JOIN risk_scoring AS rs\n    ON rs.id = r.id\nLEFT JOIN user AS u\n    ON u.value = r.owner\nWHERE rs.calculated_risk >= 4.0\n  AND r.status <> 'Closed'\nORDER BY rs.calculated_risk DESC, r.id ASC;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "94627209-17ba-4b4d-b2b8-8a0d5bde6886",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "mySql": {
+          "id": "ePO4rFszAfMXsL5X",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=🚨 **Nuevo riesgo {{$json.risk_level}} detectado**\n\n**Referencia:** {{$json.reference_id}}\n**Riesgo:** {{$json.subject}}\n**Puntuación:** {{$json.score}} / 10\n**Probabilidad:** {{$json.likelihood}} / 5\n**Impacto:** {{$json.impact}} / 5\n**Estado:** {{$json.status}}\n**Propietario:** {{$json.owner}}\n\n**Acción requerida:** revisar el riesgo y su plan de tratamiento en SimpleRisk.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        656,
+        0
+      ],
+      "id": "1a2cb130-4451-4e03-810e-4dc16371ee4a",
+      "name": "Discord",
+      "webhookId": "32710bb8-7bad-439c-bc5e-81cedfe6b802",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "XiaF0F7SY0yzKhG6",
+          "name": "Webhook Discord - Alertas SimpleRisk"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "owner": {
+          "__rl": true,
+          "value": "chiarahernandez",
+          "mode": "list",
+          "cachedResultName": "chiarahernandez",
+          "cachedResultUrl": "https://github.com/chiarahernandez"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "clinica-riesgos-seguimiento",
+          "mode": "list",
+          "cachedResultName": "clinica-riesgos-seguimiento",
+          "cachedResultUrl": "https://github.com/chiarahernandez/clinica-riesgos-seguimiento"
+        },
+        "title": "=[{{$json.reference_id}}] [{{$json.risk_level}}] {{$json.subject}}",
+        "body": "=## Riesgo detectado en SimpleRisk\n\n- **Referencia:** {{$json.reference_id}}\n- **Nombre:** {{$json.subject}}\n- **Nivel:** {{$json.risk_level}}\n- **Puntuación:** {{$json.score}} / 10\n- **Probabilidad:** {{$json.likelihood}} / 5\n- **Impacto:** {{$json.impact}} / 5\n- **Estado:** {{$json.status}}\n- **Propietario:** {{$json.owner}}\n\n## Acción requerida\n\n- [ ] Revisar la valoración del riesgo.\n- [ ] Verificar el plan de tratamiento asociado.\n- [ ] Registrar avances y responsables.\n- [ ] Actualizar el estado en SimpleRisk.\n\n---\n\n_Issue generado automáticamente por n8n a partir del registro de SimpleRisk._",
+        "labels": [
+          {
+            "label": "={{ \"security-risk\" }}"
+          },
+          {
+            "label": "={{ $json.risk_level === \"Crítico\" ? \"critical\" : \"high\" }}"
+          }
+        ],
+        "assignees": []
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        192
+      ],
+      "id": "9eae3c60-529e-4c8d-9125-a74e0146e02a",
+      "name": "Create an issue",
+      "webhookId": "0cc19da0-04ec-4b27-a485-577d04bf65ea",
+      "credentials": {
+        "githubApi": {
+          "id": "D8KgLTeUtd4zdLsE",
+          "name": "GitHub Issues - Clínica"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.notification_key}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        432,
+        0
+      ],
+      "id": "a4786678-d763-424f-8327-ffdaecf2faaf",
+      "name": "Remove Duplicates"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        208
+      ],
+      "id": "37764338-6993-43dd-bde9-c7d33a14ac7f",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an issue": {
+      "main": [
+        []
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Create an issue",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "ab698f47-5200-44ed-b78d-bcfcfc8cd8a6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "da951d08cc69dc9f597f55d0e0296ef48b50080eb0d9aa7d95f2260e205cf953"
+  },
+  "nodeGroups": [],
+  "id": "MzUx6R4TU1hxcpZc",
+  "tags": []
+}

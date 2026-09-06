@@ -1,0 +1,19 @@
+# SimpleRisk - Entorno de prueba para el TP de Gestión de Riesgos
+# Alumno: Facundo Calderón (DNI 46162078)
+#
+# Uso:
+#   docker compose up -d
+#
+# Acceso: https://localhost/  (certificado autofirmado, aceptar advertencia del navegador)
+#
+# Si los puertos 80/443 ya están en uso en tu equipo, cambie el mapeo de la izquierda
+# (por ejemplo "8080:80" y "8443:443") y acceda por https://localhost:8443/
+
+services:
+  simplerisk:
+    image: simplerisk/simplerisk
+    container_name: simplerisk
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped

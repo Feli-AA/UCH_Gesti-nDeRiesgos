@@ -1,0 +1,200 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "[path]",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "[id]",
+      "name": "Webhook",
+      "webhookId": "[id]"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "[id]",
+              "leftValue": "={{$json.body.data.risk_score}}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "[id]",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "5653956694",
+        "text": "=🚨 *¡Nuevo Riesgo Crítico Detectado!* *Asunto:* {{$json.body.data.subject}} *Puntaje:* {{$json.body.data.risk_score}} *Propietario:* {{$json.body.data.owner}} [Ver en SimpleRisk]({{$json.body.data.link}})",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        -96
+      ],
+      "id": "[id]",
+      "name": "mensaje de alerta",
+      "webhookId": "[id]",
+      "credentials": {
+        "telegramApi": {
+          "id": "[id]",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "project": {
+          "__rl": true,
+          "value": "10001",
+          "mode": "list",
+          "cachedResultName": "Clínica médica - Seguridad"
+        },
+        "issueType": {
+          "__rl": true,
+          "value": "10006",
+          "mode": "list",
+          "cachedResultName": "Tarea"
+        },
+        "summary": "={{ $('Webhook').item.json.body.data.subject }}",
+        "additionalFields": {
+          "priority": {
+            "__rl": true,
+            "value": "1",
+            "mode": "list",
+            "cachedResultName": "Highest"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.jira",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -96
+      ],
+      "id": "[id]",
+      "name": "alerta creada",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "[id]",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "project": {
+          "__rl": true,
+          "value": "10001",
+          "mode": "list",
+          "cachedResultName": "Clínica médica - Seguridad"
+        },
+        "issueType": {
+          "__rl": true,
+          "value": "10006",
+          "mode": "list",
+          "cachedResultName": "Tarea"
+        },
+        "summary": "={{ $('Webhook').item.json.body.data.subject }}",
+        "additionalFields": {
+          "priority": {
+            "__rl": true,
+            "value": "4",
+            "mode": "list",
+            "cachedResultName": "Low"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.jira",
+      "typeVersion": 1,
+      "position": [
+        448,
+        96
+      ],
+      "id": "[id]",
+      "name": "alerta registrada",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "[id]",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "mensaje de alerta",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "alerta registrada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "mensaje de alerta": {
+      "main": [
+        [
+          {
+            "node": "alerta creada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "[id_instancia]"
+  }
+}

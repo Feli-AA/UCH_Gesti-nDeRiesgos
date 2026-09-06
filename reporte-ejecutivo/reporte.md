@@ -1,23 +1,80 @@
-# REPORTE EJECUTIVO DE GESTIÓN DE RIESGOS DE CIBERSEGURIDAD
-**Dirigido a:** Directorio de la Clínica Privada  
-**Elaborado por:** Responsable de Ciberseguridad (Ignacio De Paz)  
+\# REPORTE EJECUTIVO DE GESTIÓN DE RIESGOS DE CIBERSEGURIDAD
 
-## 1. Resumen Ejecutivo
-Análogamente a la historia del Lobo Feroz y Caperucita Roja, las amenazas externas (ciberdelincuentes) emplean engaños como el Phishing para vulnerar nuestros activos más valiosos.
 
-## 2. Top 5 Riesgos Prioritarios
-1. R01 - Phishing (Crítico - 16)
-2. R02 - Ransomware HCD (Alto - 15)
-3. R03 - Fuga USB (Alto - 12)
-4. R06 - Fallas en Backups (Alto - 12)
-5. R05 - Incendio/Fuga Data Center (Alto - 10)
 
-## 3. Estado de los Planes de Acción
-Basado en Los Tres Cerditos, debemos pasar de estructuras de paja o madera a una fortaleza de ladrillo:
-* Plan 1: MFA y Capacitación Antiphishing (R01) - USD $1,200
-* Plan 2: EDR y Backups Inmutables (R02, R06) - USD $3,500
-* Plan 3: Bloqueo de USB por GPO (R03) - USD $0
+\*\*Dirigido a:\*\* Directorio de la Clínica Privada  
 
-## 4. Recomendaciones del Directorio
-1. Aprobación inmediata de presupuesto para MFA.
-2. Los Data Centers nunca deben ubicarse al lado de cocinas ni debajo de piletas o cañerías principales.
+\*\*Elaborado por:\*\* Responsable de Ciberseguridad (Ignacio De Paz)  
+
+\*\*Fecha:\*\* Septiembre de 2026  
+
+
+
+\---
+
+
+
+\## 1. Resumen Ejecutivo
+
+Análogamente a la historia del \*\*Lobo Feroz y Caperucita Roja\*\*, las amenazas externas (ciberdelincuentes) no atacan siempre por la fuerza bruta, sino que emplean engaños como el \*Phishing\* para disfrazarse de contactos legítimos y vulnerar nuestros activos más valiosos (la Historia Clínica Digital y los datos de pacientes). La ciberseguridad requiere visibilidad activa y educación continua para evitar caer en estas trampas.
+
+
+
+\---
+
+
+
+\## 2. Top 5 Riesgos Prioritarios
+
+
+
+| ID | Riesgo / Amenaza | Nivel de Riesgo | Valoración (P x I) |
+
+| :--- | :--- | :---: | :---: |
+
+| \*\*R01\*\* | Compromiso de credenciales por Phishing | \*\*Crítico\*\* | \*\*16\*\* (4 x 4) |
+
+| \*\*R02\*\* | Infección por Ransomware en servidor de HCD | \*\*Alto\*\* | \*\*15\*\* (3 x 5) |
+
+| \*\*R03\*\* | Fuga de datos de pacientes mediante USB en consultorios | \*\*Alto\*\* | \*\*12\*\* (4 x 3) |
+
+| \*\*R06\*\* | Corrupción de Backups e imposibilidad de restauración | \*\*Alto\*\* | \*\*12\*\* (3 x 4) |
+
+| \*\*R07\*\* | Riesgo de incendio o filtración física en el Data Center | \*\*Alto\*\* | \*\*10\*\* (2 x 5) |
+
+
+
+\---
+
+
+
+\## 3. Estado de los Planes de Acción
+
+Basado en la parábola de \*\*Los Tres Cerditos\*\*, nuestro modelo de defensa actual no puede sostenerse sobre estructuras frágiles de paja o madera (antivirus tradicionales o políticas solo en papel). Debemos construir una fortaleza de ladrillo con capas de contención robustas e inmutables:
+
+
+
+1\. \*\*Plan 1 (Para R01):\*\* Implementación de Autenticación Multifactor (MFA) y programa continuo de concienciación.  
+
+&#x20;  \* \*\*Inversión estimada:\*\* USD $1,200.
+
+2\. \*\*Plan 2 (Para R02 y R06):\*\* Despliegue de tecnología EDR en endpoints y esquema de copias de seguridad inmutables/offline.  
+
+&#x20;  \* \*\*Inversión estimada:\*\* USD $3,500.
+
+3\. \*\*Plan 3 (Para R03):\*\* Bloqueo centralizado de puertos USB por Directivas de Grupo (GPO).  
+
+&#x20;  \* \*\*Inversión estimada:\*\* USD $0 (Recursos internos).
+
+
+
+\---
+
+
+
+\## 4. Recomendaciones para el Directorio
+
+1\. \*\*Aprobación Presupuestaria:\*\* Priorizar de manera inmediata la partida de inversión para MFA y EDR para mitigar los riesgos Crítico y Alto sobre la HCD.
+
+2\. \*\*Infraestructura Física Obligatoria:\*\* Relocalización inmediata del servidor central. Por especificación técnica estricta, \*\*los Data Centers nunca deben ubicarse al lado de cocinas (riesgo crítico de incendio) ni debajo de piletas o cañerías principales (riesgo crítico de filtración e inundación)\*\*.
+

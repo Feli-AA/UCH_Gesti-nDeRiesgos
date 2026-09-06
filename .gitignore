@@ -12,7 +12,7 @@ config.php
 *.dump
 *.bak
 
-# Binarios pesados y maquinas virtuales
+# Binarios pesados
 *.ova
 *.vmdk
 *.vdi
@@ -24,12 +24,12 @@ config.php
 # Snapshots de VM
 snapshots/
 
-# Sistema Operativo e IDE
+# OS e IDE
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
 
-# Logs
+# Logs con datos sensibles
 *.log
 logs/

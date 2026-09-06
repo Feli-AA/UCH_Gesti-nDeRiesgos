@@ -1,38 +1,26 @@
-# Entrega Trabajo Práctico - SimpleRisk
+# Entrega TP: Gestión de Riesgos con SimpleRisk
 
-* **Nombre y Apellido:** Ignacio De Paz
-* **LU:** 123456
-* **Email Institucional:** ignacio.depaz@estudiantes.utn.edu.ar
-* **Comisión:** Seguridad de Sistemas
+* **Alumno:** Ignacio De Paz
+* **Legajo / LU:** 123456
+* **Email Institucional:** ignacio.depaz@estudiante.edu.ar
+* **Comisión:** Cátedra de Seguridad de Sistemas
+* **Rama Git:** `entrega/depaz-ignacio-123456`
 
----
+## Despliegue del Entorno
+cd entorno && docker-compose up -d
 
 ## Decisiones de Diseño
-
-* **Metodología de Riesgos:** Matriz clásica de Probabilidad × Impacto en escala 1-5.
-* **Entorno de Despliegue:** Contenedores mediante Docker Compose.
+Matriz de riesgo 5x5 centrada en HCD.
 
 ### Verificación
 girasol
 
----
-
-## Instrucciones para Desplegar el Entorno
-
-1. Clonar el repositorio y posicionarse en la rama de entrega.
-2. Navegar hasta la carpeta `entorno/`.
-3. Ejecutar `docker-compose up -d` para levantar el contenedor de SimpleRisk.
-4. Acceder vía navegador web a `http://localhost:8080`.
-
----
-
 ## Checklist de Auto-Revisión
-
-- [x] No hay credenciales en el repositorio[cite: 4, 5, 6].
-- [x] El archivo `.gitignore` está correctamente configurado[cite: 4, 5, 6].
-- [x] Las capturas de pantalla no muestran datos sensibles[cite: 4, 5, 6].
-- [x] Los archivos `.sql` o dumps no están subidos[cite: 4, 5, 6].
-- [x] El informe está en un formato legible.
-- [x] El reporte ejecutivo está completo[cite: 5, 6].
-- [x] Los mensajes de commit son descriptivos[cite: 5, 6].
-- [x] Mi branch está actualizada y funciona correctamente[cite: 5, 6].
+- [x] No hay credenciales en el repositorio
+- [x] El .gitignore está configurado
+- [x] Las capturas no contienen datos sensibles
+- [x] Los dumps .sql están excluidos
+- [x] Informe completo
+- [x] Reporte ejecutivo generado
+- [x] Commits descriptivos
+- [x] Rama actualizada

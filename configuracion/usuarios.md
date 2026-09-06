@@ -1,7 +1,9 @@
 # Registro de Usuarios y Permisos - SimpleRisk
 
-| Usuario | Nombre Completo | Rol Asignado | Permisos / Alcance |
+| Usuario | Nombre Completo | Rol Asignado | Ámbito de Permisos / Accesos |
 | :--- | :--- | :--- | :--- |
-| `admin_clinica` | Juan Pérez | Administrator | Acceso total al sistema, gestión de usuarios y configuración general. |
-| `analista_riesgos` | María Gómez | Risk Analyst | Evaluación de riesgos, carga de matrices y creación de planes de mitigación. |
-| `auditor_ext` | Carlos López | Auditor | Acceso de solo lectura para revisión de evidencias, registros y reportes. |
+| `admin_seg` | Ignacio De Paz | Administrator | Gestión total del sistema, configuración de módulos, creación de usuarios y asignación de roles. |
+| `analista_riesgos` | María Giménez | Risk Analyst | Creación, evaluación y actualización de riesgos, definición de probabilidades, impactos y planes de acción. |
+| `auditor_ext` | Carlos Mendoza | Read-Only / Auditor | Lectura y exportación de reportes ejecutivos, consulta de la matriz de riesgos y planes de tratamiento sin permisos de edición. |
+
+> **Nota de Seguridad:** En cumplimiento de las políticas del TP, no se incluyen credenciales ni contraseñas en los archivos del repositorio.

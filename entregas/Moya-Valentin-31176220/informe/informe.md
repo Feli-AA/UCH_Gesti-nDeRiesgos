@@ -1,3 +1,15 @@
+## Notas Técnicas sobre la Implementación en SimpleRisk
+
+### Diferencia entre cálculo manual y fórmula interna de SimpleRisk
+
+Durante el relevamiento se utilizó una escala manual de Probabilidad × Impacto (1–5) para la priorización inicial, obteniendo valores como R2 = 20 o R4 = 16. Al cargar los mismos riesgos en SimpleRisk, la plataforma aplica su propia fórmula de matriz interna (que no es una multiplicación directa), resultando en valores como 8 o 6.4. **Ambos criterios mantienen el mismo orden de prioridad** (R2 &gt; R4 &gt; R1), por lo que la jerarquía de riesgos no se ve afectada. Se recomienda dejar constancia de este comportamiento para evitar confusiones en auditorías futuras.
+
+### Riesgo Residual en estado "Mitigation Planned"
+
+En los riesgos donde se creó un plan de mitigación (R2, R4, R1), SimpleRisk muestra el *Residual Risk* idéntico al *Inherent Risk* mientras el plan permanezca en estado *Planned* y no *Implemented*. Esto es correcto desde el punto de vista del sistema: el riesgo residual solo se recalcula una vez que los controles están efectivamente desplegados. En el reporte ejecutivo se presentan los valores de riesgo inherente como referencia de la exposición actual de la clínica.
+
+---
+
 ## Comparación Metodológica: SimpleRisk (Matriz Clásica) vs. FAIR 
 
 ### Enfoque de SimpleRisk — Matriz Probabilidad × Impacto (cualitativa/ordinal)
@@ -31,7 +43,7 @@ FAIR conviene cuando la organización ya tiene un programa de riesgos maduro y n
 
 Conclusión: ambos enfoques no son excluyentes — una organización podría usar SimpleRisk para el relevamiento inicial rápido (como hicimos en este TP) y aplicar FAIR selectivamente sobre los 2-3 riesgos de mayor criticidad (en nuestro caso, R2 y R4) para justificar la inversión de los planes de mitigación ante la dirección.
 
-## Integración con Herramienta Externa: Discord (Webhook)
+## Actividad D2 Integración con Herramienta Externa: Discord (Webhook)
 
 Se implementó una integración funcional entre SimpleRisk y Discord mediante un webhook, que notifica automáticamente cuando existen riesgos de nivel Alto o Crítico en el registro.
 
@@ -62,3 +74,34 @@ Se relevaron 3 debilidades potenciales en la instalación por defecto de SimpleR
 **Hallazgo:** el `docker-compose.yml` utiliza la imagen `simplerisk/simplerisk:latest`. Si bien la versión instalada (PHP 8.3.6, MySQL 8.0.46) es relativamente reciente, el uso del tag `latest` implica que no hay control sobre cuándo se actualiza la imagen, ni garantía de reproducibilidad entre distintos `docker pull` (el contenido de `latest` puede cambiar sin aviso).
 
 **Mitigación propuesta:** fijar una versión específica de la imagen (ej. `simplerisk/simplerisk:20260828-001`) en el `docker-compose.yml`, y establecer un proceso periódico manual de revisión de nuevas versiones y parches de seguridad antes de actualizar.
+
+
+## Actividad Optativa D4: Propuesta de Mejora a SimpleRisk
+
+### Issue: Agregar cálculo de riesgo residual visible en el listado principal de riesgos
+
+**Tipo:** Feature Request / UX
+
+**Descripción del problema:**
+
+Actualmente, SimpleRisk muestra el "Inherent Risk" (riesgo inherente, sin controles aplicados) de forma prominente en el listado principal de riesgos (`Plan Mitigation`), pero el "Residual Risk" (riesgo remanente después de aplicar los controles/mitigaciones planificadas) solo es visible al entrar al detalle de cada riesgo individual.
+
+Para una organización con un volumen considerable de riesgos (decenas o cientos), esto obliga a un responsable de seguridad a abrir riesgo por riesgo para conocer el verdadero estado de exposición después de aplicar los tratamientos, dificultando la priorización rápida.
+
+**Comportamiento esperado:**
+
+Agregar una columna **"Residual Risk"** en la tabla principal de `Plan Mitigation`, junto a la columna existente **"Inherent Risk (Current)"**, de forma que sea posible comparar de un vistazo el riesgo original con el riesgo remanente de cada riesgo, sin necesidad de ingresar al detalle individual.
+
+**Valor para el usuario:**
+
+Permite a un responsable de seguridad o a un directorio identificar rápidamente qué riesgos continúan presentando una exposición elevada a pesar de los controles o tratamientos planificados, facilitando la priorización y la toma de decisiones sobre dónde reforzar las medidas de mitigación.
+
+**Criterios de aceptación:**
+
+- La tabla de `Plan Mitigation` muestra una nueva columna **"Residual Risk"** junto a **"Inherent Risk (Current)"**.
+- Si un riesgo todavía no tiene un plan de mitigación cargado, la columna muestra **"N/A"** o el mismo valor correspondiente al riesgo inherente.
+- La columna **"Residual Risk"** es ordenable, al igual que las demás columnas de la tabla.
+
+**Etiquetas sugeridas:**
+
+`enhancement`, `ux`, `risk-management`

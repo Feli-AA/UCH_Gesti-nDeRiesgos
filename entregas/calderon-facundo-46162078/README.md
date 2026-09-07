@@ -64,5 +64,5 @@ girasol
 - [x] Los archivos .sql o dumps no están subidos
 - [x] El informe está en formato legible
 - [x] El reporte ejecutivo está completo
-- [ ] Los mensajes de commit son descriptivos
-- [ ] Mi branch está actualizada y funciona
+- [X] Los mensajes de commit son descriptivos
+- [X] Mi branch está actualizada y funciona

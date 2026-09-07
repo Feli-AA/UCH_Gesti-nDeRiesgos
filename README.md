@@ -1,26 +1,28 @@
-# Entrega TP: Gestión de Riesgos con SimpleRisk
+# UCH - Seguridad - Gestión de Riesgos
+> `#UCH_GestiónDeRiesgos`
 
-* **Alumno:** Ignacio De Paz
-* **Legajo / LU:** 123456
-* **Email Institucional:** ignacio.depaz@estudiante.edu.ar
-* **Comisión:** Cátedra de Seguridad de Sistemas
-* **Rama Git:** `entrega/depaz-ignacio-123456`
+Este repositorio público está destinado únicamente para las entregas de los estudiantes.
 
-## Despliegue del Entorno
-cd entorno && docker-compose up -d
+---
 
-## Decisiones de Diseño
-Matriz de riesgo 5x5 centrada en HCD.
+## 📌 Checklist de Auto-Revisión
+*Por favor, marca las casillas correspondientes antes de realizar tu entrega:*
 
-### Verificación
-girasol
+- [ ] No hay credenciales en el repositorio.
+- [ ] El archivo `.gitignore` está correctamente configurado.
+- [ ] Las capturas de pantalla no muestran datos sensibles.
+- [ ] Los archivos `.sql` o dumps no están subidos.
+- [ ] El informe está en un formato legible.
+- [ ] El reporte ejecutivo está completo.
+- [ ] Los mensajes de commit son descriptivos.
+- [ ] Mi branch está actualizada y funciona correctamente.
 
-## Checklist de Auto-Revisión
-- [x] No hay credenciales en el repositorio
-- [x] El .gitignore está configurado
-- [x] Las capturas no contienen datos sensibles
-- [x] Los dumps .sql están excluidos
-- [x] Informe completo
-- [x] Reporte ejecutivo generado
-- [x] Commits descriptivos
-- [x] Rama actualizada
+---
+
+## ⚠️ Política de Branches y Resolución de Conflictos
+
+- **Responsabilidad:** Cada estudiante es responsable exclusivo de su propia branch.
+- **Errores de Commit:** Si por error haces un commit sobre `main` o sobre la branch de otro compañero, avisa inmediatamente al docente.
+- **Restricciones:** No se permite hacer `git push --force` sobre ninguna branch compartida.
+- **Soporte:** Ante dudas sobre Git, consulta al docente antes de realizar operaciones destructivas (`reset`, `rebase`, `push -f`).
+

@@ -1,0 +1,33 @@
+# Variables de entorno y secretos
+*.env
+.env.*
+config.php
+*credentials*
+*secrets*
+*.key
+*.pem
+
+# Bases de datos y backups
+*.sql
+*.dump
+*.bak
+*.db
+*.sqlite
+
+# Logs
+*.log
+
+# VirtualBox / máquinas virtuales
+*.ova
+*.vmdk
+*.vdi
+*.vhd
+
+# Archivos temporales
+*.tmp
+*.swp
+*~
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

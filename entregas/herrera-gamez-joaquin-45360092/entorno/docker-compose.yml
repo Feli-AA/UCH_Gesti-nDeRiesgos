@@ -1,0 +1,28 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: passSimpleRisk
+      MYSQL_DATABASE: simplerisk
+      MYSQL_USER: simplerisk
+      MYSQL_PASSWORD: passSimpleRisk
+    command: --sql-mode=
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  simplerisk:
+    image: simplerisk/simplerisk-minimal:latest
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: simplerisk
+      DB_USER: simplerisk
+      DB_PASSWORD: passSimpleRisk
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:

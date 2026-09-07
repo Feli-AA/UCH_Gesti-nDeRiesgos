@@ -1,0 +1,16 @@
+services:
+  simplerisk:
+    image: simplerisk/simplerisk:latest
+    # platform fijado explícitamente porque en Mac con Apple Silicon (arm64)
+    # todavía no existe una imagen nativa; se emula la versión amd64.
+    platform: linux/amd64
+    container_name: simplerisk
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - simplerisk_data:/var/www/html
+    restart: unless-stopped
+
+volumes:
+  simplerisk_data:

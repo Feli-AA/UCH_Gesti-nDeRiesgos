@@ -70,13 +70,13 @@ docker compose up -d
 
 ## Checklist de auto-revisión
 
-- [ ] No hay credenciales en el repositorio.
-- [ ] El `.gitignore` está correctamente configurado.
-- [ ] Las capturas no muestran datos sensibles.
-- [ ] No se subieron archivos `.sql` ni dumps.
-- [ ] El informe está en formato legible.
-- [ ] El reporte ejecutivo está completo.
-- [ ] Los mensajes de commit son descriptivos.
-- [ ] La branch está actualizada y funciona.
+- [ x] No hay credenciales en el repositorio.
+- [ x] El `.gitignore` está correctamente configurado.
+- [ x] Las capturas no muestran datos sensibles.
+- [ x] No se subieron archivos `.sql` ni dumps.
+- [ x] El informe está en formato legible.
+- [ x] El reporte ejecutivo está completo.
+- [ x] Los mensajes de commit son descriptivos.
+- [ x] La branch está actualizada y funciona.
 
 

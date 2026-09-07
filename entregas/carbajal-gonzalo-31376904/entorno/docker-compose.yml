@@ -1,0 +1,13 @@
+services:
+  simplerisk:
+    image: simplerisk/simplerisk:latest
+    container_name: simplerisk
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+      - "8444:443"
+    volumes:
+      - simplerisk-data:/var/www/html
+
+volumes:
+  simplerisk-data:

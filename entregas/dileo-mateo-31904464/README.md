@@ -3,7 +3,7 @@
 ## Datos del estudiante
 
 - **Nombre completo:** Mateo Di Leo
-- **LU:** Pendiente
+- **LU:** 31904464
 - **Correo institucional:** mateodileoblas@uch.edu.ar
 - **Comisión:** DIV-2016
 - **Materia:** Seguridad de Sistemas

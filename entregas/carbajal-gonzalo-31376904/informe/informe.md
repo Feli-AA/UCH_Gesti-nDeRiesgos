@@ -375,13 +375,16 @@ herramienta externa").
 [ALERTA] Riesgo de nivel High detectado en SimpleRisk
 #2 - R01 - Acceso privilegiado sin restricciones del proveedor de software
 Score: 8
-Revisar en: http://localhost:8081/management/view.php?id=2
+Revisar en: https://localhost:8444/management/view.php?id=2
 ```
 
-**Nota:** el link apunta a `localhost:8081` porque SimpleRisk corre en un contenedor Docker
-local para este TP (no hay una instancia pública). Es el comportamiento esperado en este
-entorno de demostración — en un despliegue productivo real ese link apuntaría a un dominio
-interno accesible por el equipo de seguridad.
+**Nota:** el link apunta a `localhost:8444` (el puerto HTTPS mapeado en
+`docker-compose.yml`) porque SimpleRisk corre en un contenedor Docker local para este TP
+(no hay una instancia pública). Es el comportamiento esperado en este entorno de
+demostración — en un despliegue productivo real ese link apuntaría a un dominio interno
+accesible por el equipo de seguridad. La primera versión de prueba usaba el puerto HTTP
+(8081), que también funciona porque SimpleRisk redirige automáticamente a HTTPS, pero se
+ajustó para enlazar directo al puerto HTTPS y evitar el salto innecesario.
 
 **Problema encontrado y resuelto durante la prueba:** la primera versión del script incluía
 un emoji (⚠️) y un guion largo (—) en el mensaje. En este entorno (Git Bash sobre Windows),

@@ -54,7 +54,7 @@ while IFS=$'\t' read -r id subject level score; do
   # Solo caracteres ASCII en el mensaje: en algunos entornos (Git Bash en
   # Windows) el emoji/guion largo se corrompen al pasar por printf/sed y
   # generan UTF-8 invalido, que Discord rechaza con 400 "invalid JSON".
-  message="[ALERTA] Riesgo de nivel ${level} detectado en SimpleRisk\n#${id} - ${subject}\nScore: ${score}\nRevisar en: http://localhost:8081/management/view.php?id=${id}"
+  message="[ALERTA] Riesgo de nivel ${level} detectado en SimpleRisk\n#${id} - ${subject}\nScore: ${score}\nRevisar en: https://localhost:8444/management/view.php?id=${id}"
   payload=$(printf '{"content": "%s"}' "$(printf '%s' "$message" | sed 's/"/\\"/g')")
   http_code=$(curl -s -o /tmp/notify_response.json -w "%{http_code}" -H "Content-Type: application/json" -X POST -d "$payload" "$WEBHOOK_URL")
   if [ "$http_code" = "204" ] || [ "$http_code" = "200" ]; then

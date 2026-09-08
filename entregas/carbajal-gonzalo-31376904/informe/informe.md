@@ -32,6 +32,12 @@ Los roles custom se diseñaron aplicando el principio de mínimo privilegio: cad
 su propio trabajo con permisos de administrador ni que el auditor pueda alterar el registro
 de riesgos que está revisando (segregación de funciones).
 
+![Usuario admin_demo con rol Administrator](capturas/manage-users-administrador.png)
+
+![Usuario analista_demo con rol custom Analista de Riesgos](capturas/manage-users-analista.png)
+
+![Usuario auditor_demo con rol custom Auditor, permisos de solo revisión](capturas/manage-users-auditor.png)
+
 ### Riesgo de prueba
 
 Se creó un riesgo de prueba ("Riesgo de prueba — validación de instalación", ID #1001)

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reporte Ejecutivo de Riesgos — Cable Sur S.A.</title>
+<style>
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.35;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  h1 { font-size: 16pt; margin: 0 0 2px 0; color: #10233f; }
+  h2 {
+    font-size: 12pt; margin: 14px 0 6px 0; padding-bottom: 3px;
+    border-bottom: 2px solid #10233f; color: #10233f;
+  }
+  .subtitle { font-size: 9.5pt; color: #555; margin-bottom: 10px; }
+  .meta { font-size: 9pt; color: #666; margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 10px 0; font-size: 9.3pt; }
+  th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; vertical-align: top; }
+  th { background: #10233f; color: white; font-weight: 600; }
+  tr:nth-child(even) td { background: #f4f6f9; }
+  .nivel-critico { background:#c0392b !important; color:white; font-weight:bold; text-align:center; }
+  .nivel-alto { background:#e67e22 !important; color:white; font-weight:bold; text-align:center; }
+  .nivel-medio { background:#f1c40f !important; color:#333; font-weight:bold; text-align:center; }
+  .estado-badge {
+    display:inline-block; padding:1px 7px; border-radius:3px; font-size:8.6pt; color:white;
+  }
+  .estado-planificado { background:#2980b9; }
+  .estado-progreso { background:#8e44ad; }
+  ul, ol { margin: 4px 0 8px 20px; padding: 0; }
+  li { margin-bottom: 3px; }
+  .box {
+    background:#f4f6f9; border-left: 4px solid #10233f; padding: 8px 10px; margin: 8px 0;
+    font-size: 9.6pt;
+  }
+  .box.destacado { border-left-color:#c0392b; background:#fdf2f0; }
+  .footer { font-size: 8pt; color:#888; text-align:center; margin-top:10px; }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<h1>Reporte Ejecutivo de Gestión de Riesgos</h1>
+<div class="subtitle">Cable Sur S.A. — Sistema SIGA (Gestión de Abonados) | Dirigido al Directorio</div>
+<div class="meta">Elaborado por: Gonzalo Carbajal — Responsable de Seguridad de la Información (rol asignado para este análisis) | Fecha: Septiembre de 2026</div>
+
+<h2>1. Resumen Ejecutivo</h2>
+<p>
+Como parte del seguimiento a la auditoría externa reciente, se realizó un relevamiento
+inicial de riesgos de seguridad de la información sobre el sistema SIGA, que administra
+la totalidad de los abonados, la facturación y la cobranza de Cable Sur. Se identificaron
+<strong>8 riesgos</strong>, de los cuales <strong>1 es de nivel Crítico</strong> y
+<strong>3 son de nivel Alto</strong>, concentrados principalmente en el manejo de accesos
+de terceros, el tratamiento de datos financieros de abonados, y la continuidad operativa
+del datacenter propio. Se definieron 3 planes de acción concretos, con responsable,
+presupuesto y fecha de cumplimiento, sobre los riesgos de mayor severidad.
+</p>
+
+<div class="box destacado">
+<strong>Sobre la naturaleza de las amenazas externas:</strong> así como el lobo feroz no
+atacó a Caperucita Roja de frente, sino disfrazado de su abuela para ganarse su confianza
+y acceder a lo que no le correspondía, los atacantes reales rara vez tocan la puerta
+principal: explotan accesos legítimos mal controlados (como el acceso permanente del
+proveedor de software, riesgo R01) o se infiltran a través de terceros de confianza
+(integraciones de marketing y cobranza, riesgo R04). El directorio debe entender que el
+mayor riesgo no es "que entren", sino "que entren disfrazados de alguien autorizado".
+</div>
+
+<h2>2. Top 5 Riesgos por Nivel</h2>
+<table>
+<thead>
+<tr><th>#</th><th>Riesgo</th><th>Categoría</th><th>Nivel</th><th>Tratamiento</th></tr>
+</thead>
+<tbody>
+<tr><td>R01</td><td>Acceso privilegiado sin restricciones del proveedor de software</td><td>Confidencialidad / Terceros</td><td class="nivel-critico">Crítico</td><td>Mitigar</td></tr>
+<tr><td>R02</td><td>Almacenamiento inseguro de datos de tarjetas (PCI-DSS)</td><td>Confidencialidad / Legal</td><td class="nivel-alto">Alto</td><td>Mitigar</td></tr>
+<tr><td>R04</td><td>Exposición de datos vía integraciones con terceros</td><td>Confidencialidad / Cadena de suministro</td><td class="nivel-alto">Alto</td><td>Mitigar</td></tr>
+<tr><td>R06</td><td>Riesgo físico/ambiental por datacenter propio sin redundancia</td><td>Disponibilidad / Continuidad</td><td class="nivel-alto">Alto</td><td>Mitigar</td></tr>
+<tr><td>R03</td><td>Manipulación/fraude en habilitación remota de decodificadores</td><td>Integridad / Operativo</td><td class="nivel-medio">Medio</td><td>Mitigar</td></tr>
+</tbody>
+</table>
+
+<h2>3. Estado de los Planes de Acción</h2>
+<table>
+<thead>
+<tr><th>Riesgo</th><th>Plan de acción</th><th>Responsable</th><th>Vencimiento</th><th>Presupuesto</th><th>Estado</th></tr>
+</thead>
+<tbody>
+<tr><td>R01</td><td>Implementar acceso privilegiado seguro (PAM) para el proveedor</td><td>Gerente de IT</td><td>30/11/2026</td><td>USD 8.000</td><td><span class="estado-badge estado-planificado">Planificado</span></td></tr>
+<tr><td>R02</td><td>Migrar a tokenización PCI-DSS de datos de tarjeta</td><td>CISO</td><td>28/02/2027</td><td>USD 15.000</td><td><span class="estado-badge estado-planificado">Planificado</span></td></tr>
+<tr><td>R06</td><td>Plan de Continuidad de Negocio y backup off-site</td><td>Gerente de IT/Infraestructura</td><td>15/01/2027</td><td>USD 6.000/año</td><td><span class="estado-badge estado-progreso">En progreso (10%)</span></td></tr>
+</tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h2>4. Recomendaciones Prioritarias</h2>
+
+<div class="box">
+<strong>Defensa en profundidad — la analogía de los 3 cerditos:</strong> ningún control
+aislado alcanza. El cerdito de la casa de paja y el de la casa de madera cayeron ante el
+lobo; solo la casa de ladrillo resistió. De la misma forma, el plan de tratamiento
+propuesto combina <em>múltiples capas</em>: controles técnicos (gestión de accesos
+privilegiados, tokenización de tarjetas), controles administrativos (revisión periódica de
+permisos, políticas de proveedores) y controles físicos/de continuidad (redundancia del
+datacenter, backups off-site). Ninguna de estas capas por sí sola —como ninguna de las
+casas por sí sola— es capaz de contener un incidente serio.
+</div>
+
+<ol>
+  <li><strong>Prioridad 1 — Acceso del proveedor (R01):</strong> implementar un esquema de
+  acceso privilegiado (PAM) con autenticación multifactor y grabación de sesión antes de
+  fin de año. Es el riesgo de mayor severidad del registro.</li>
+  <li><strong>Prioridad 2 — Datos de tarjetas (R02):</strong> migrar a tokenización
+  certificada PCI-DSS; la exposición actual implica riesgo legal y reputacional directo
+  ante abonados y entidades bancarias.</li>
+  <li><strong>Prioridad 3 — Continuidad del datacenter (R06):</strong> definir un sitio de
+  contingencia y automatizar backups fuera de sitio.
+  <strong>Recomendación estructural:</strong> los centros de datos nunca deben ubicarse
+  junto a cocinas ni debajo de instalaciones con agua (piletas, baños, cañerías), dado el
+  riesgo de incendio e inundación respectivamente — una condición básica de continuidad
+  que debe verificarse en la ubicación física actual y en cualquier sitio alternativo que
+  se evalúe.</li>
+  <li><strong>Prioridad 4 — Integraciones de terceros (R04):</strong> centralizar la
+  gestión de credenciales (vault de secretos) usadas por Mailchimp, Braze, Zapier y
+  Apigee, con rotación periódica.</li>
+  <li><strong>Prioridad 5 — Gobierno de riesgos continuo:</strong> institucionalizar la
+  revisión trimestral del registro de riesgos en SimpleRisk, con reporte al directorio,
+  en lugar de tratarlo como un ejercicio único post-auditoría.</li>
+</ol>
+
+<div class="footer">Reporte generado a partir del registro de riesgos en SimpleRisk — Cable Sur S.A. (nombre ficticio) — Uso interno / Directorio</div>
+
+</body>
+</html>

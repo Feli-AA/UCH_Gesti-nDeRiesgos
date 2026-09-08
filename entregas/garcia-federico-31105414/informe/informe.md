@@ -8,6 +8,29 @@ La organización planteada es una clínica privada de 120 empleados que atiende 
 
 A partir de este escenario se identificaron los principales activos y riesgos de seguridad de la información, se evaluó su probabilidad e impacto y se definieron medidas para tratar los riesgos de mayor importancia.
 
+## Parte A - Instalacion y Configuracion Basica
+
+Para este trabajo se instalo SimpleRisk de forma local utilizando Docker, siguiendo
+el procedimiento de imagen oficial publicada en DockerHub. Los pasos utilizados
+estan documentados en `entorno/setup.sh` y se resumen tambien en el README del
+repositorio.
+
+Una vez levantada la instancia, se crearon 3 usuarios con roles diferenciados para
+cumplir con lo solicitado en esta parte:
+
+- Un usuario Administrador, con acceso total al sistema.
+- Un usuario Analista de Riesgos, con permisos para crear y modificar riesgos y
+  planificar mitigaciones.
+- Un usuario Auditor, con permisos de solo lectura sobre los riesgos y activos
+  cargados.
+
+El detalle completo de estos usuarios, sus roles y permisos especificos se
+encuentra documentado en `configuracion/usuarios.md`.
+
+Como primer paso de validacion, se creo un riesgo de prueba en SimpleRisk para
+confirmar que el sistema funcionaba correctamente antes de avanzar con la carga
+del escenario completo de la Clinica San Rafael, desarrollado en la Parte B.
+
 ## Parte B - Implementación en SimpleRisk
 
 Para realizar el trabajo se configuró una instancia local de SimpleRisk y se cargaron:

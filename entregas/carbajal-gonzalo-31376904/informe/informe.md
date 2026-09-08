@@ -217,8 +217,7 @@ Ver tabla completa en `configuracion/riesgos.md`. Resumen:
 
 ![Panel de Settings de SimpleRisk, con Role/Team/User Management en "Users & Access"](capturas/settings-roles.png)
 
-> Nota: se recorta la barra de marcadores del navegador en capturas futuras — en esta
-> quedó visible por error y no debería mostrar contenido personal/laboral ajeno al TP.
+![Plan Mitigation: R01, R02 y R06 ya no figuran como pendientes de planificar mitigación, evidencia de que seed_action_plans.sql se aplicó correctamente](capturas/plan-mitigation-evidencia-d3.png)
 
 ### Nota metodológica: score de SimpleRisk vs. matriz de justificación propia
 

@@ -33,3 +33,4 @@ docker compose ps
 Con los contenedores en estado activo, abra un navegador web e ingrese a la siguiente dirección mapeada en el host:
 
 https://localhost:8443
+

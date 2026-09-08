@@ -19,12 +19,15 @@ Para crear la red, descargar las imágenes e iniciar los contenedores en segundo
 ```bash
 cd entorno/
 docker compose up -d
-
+```
 4. Tiempo de Inicialización
 Una vez enviado el comando, es necesario esperar entre 30 y 45 segundos. Durante este lapso, el contenedor de la base de datos realizará su configuración inicial y creará las tablas internas.
 Para comprobar que los contenedores están corriendo correctamente, ejecute:
 
-docker compose ps (Ambos contenedores deben figurar en estado "Up").
+```bash
+docker compose ps 
+```
+(Ambos contenedores deben figurar en estado "Up").
 
 5. Acceso a la Plataforma
 Con los contenedores en estado activo, abra un navegador web e ingrese a la siguiente dirección mapeada en el host:

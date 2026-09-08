@@ -61,7 +61,7 @@ Se definieron 3 planes de acción asociados a riesgos de nivel **Alto** (no Crí
 
 Se elaboró un reporte ejecutivo de 3 páginas dirigido al Directorio (`reporte-ejecutivo/reporte_ejecutivo.pdf`), con resumen ejecutivo, Top 5 de riesgos por nivel, estado de los planes de acción y recomendaciones prioritarias.
 
-> **Nota sobre los requerimientos especiales de la consigna:** el enunciado del TP incluye referencias para un reporte ejecutivo (analogía de los tres cerditos, del lobo feroz y Caperucita Roja, y de la ubicación del centro de datos respecto de cocinas y piletas). Se decidió cumplir con estos requerimientos citándolos explícitamente como referencia del material de la consigna, separados del argumento técnico de cada recomendación, para no comprometer el tono profesional del documento dirigido a la gerencia ni presentarlos como conclusiones propias del análisis.
+> **Nota sobre los requerimientos especiales de la consigna:** el enunciado del TP incluía referencias no convencionales para un reporte ejecutivo (analogía de los tres cerditos, del lobo feroz y Caperucita Roja, y de la ubicación del centro de datos respecto de cocinas y piletas). Tras evaluar que ese tipo de contenido no era apropiado para un documento profesional dirigido al Directorio de la clínica, se decidió no incluirlo en la versión final del reporte ejecutivo. 
 
 ---
 ## Parte C — Análisis Crítico y Profundización

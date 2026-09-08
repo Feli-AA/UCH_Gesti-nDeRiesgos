@@ -33,3 +33,5 @@ Thumbs.db
 # Logs con datos sensibles
 *.log
 logs/
+
+riesgos_notificados.json

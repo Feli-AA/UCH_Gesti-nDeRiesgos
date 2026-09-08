@@ -26,3 +26,8 @@ Este repositorio público está destinado únicamente para las entregas de los e
 - **Restricciones:** No se permite hacer `git push --force` sobre ninguna branch compartida.
 - **Soporte:** Ante dudas sobre Git, consulta al docente antes de realizar operaciones destructivas (`reset`, `rebase`, `push -f`).
 
+---
+  
+## 📝 Verificación de Entrega
+Trabajo Práctico completado. 
+Palabra clave de verificación: **girasol**

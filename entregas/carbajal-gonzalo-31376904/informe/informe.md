@@ -209,10 +209,80 @@ Ver tabla completa en `configuracion/riesgos.md`. Resumen:
 3. **R06 (Alto):** Plan de Continuidad de Negocio + backups off-site — Gerente de
    IT/Infraestructura, vencimiento 2027-01-15, USD 6.000/año.
 
+### Capturas
+
+![Detalle del riesgo R01, crítico, en SimpleRisk](capturas/risk-r01-detalle.png)
+
+![Listado de los 9 riesgos cargados con su nivel calculado](capturas/listado-riesgos.png)
+
+![Panel de Settings de SimpleRisk, con Role/Team/User Management en "Users & Access"](capturas/settings-roles.png)
+
+> Nota: se recorta la barra de marcadores del navegador en capturas futuras — en esta
+> quedó visible por error y no debería mostrar contenido personal/laboral ajeno al TP.
+
+### Nota metodológica: score de SimpleRisk vs. matriz de justificación propia
+
+Al cargar los 8 riesgos se observó que el **score interno "Classic" de SimpleRisk** no
+coincide con la clasificación Bajo/Medio/Alto/Crítico usada en la tabla de justificación
+de este informe (basada en la matriz clásica P×I 1-25, con los mismos rangos del material
+de cátedra: Bajo 1-4, Medio 5-9, Alto 10-15, Crítico 16-25). SimpleRisk aplica
+internamente `calculated_risk = likelihood × impact × 0.4` y clasifica con umbrales
+propios (`Low` <4, `Medium` 4-7, `High` 7-10.1, `Very High` ≥10.1) — un factor de escala y
+unos cortes que **no están documentados en la interfaz** y que un usuario no
+técnico difícilmente pueda inferir. Por ejemplo, R01 (que en nuestra matriz justificada es
+"Crítico", valor 20/25) aparece en SimpleRisk como **"High"**, y ningún riesgo del
+registro llega a "Very High" pese a existir un riesgo catastrófico con probabilidad alta.
+Este hallazgo se retoma como argumento concreto en la Parte C (comparación
+metodológica): la falta de transparencia/configurabilidad del modelo "Classic" es una
+limitación real frente a metodologías como FAIR, que expresan el riesgo en términos
+auditable y con supuestos explícitos. Las decisiones de tratamiento de este TP se basan
+en **la matriz propia, documentada y justificada** (`configuracion/riesgos.md`), no en el
+score bruto que muestra la herramienta.
+
 ## Parte C — Análisis Crítico y Profundización
 
 _Pendiente._
 
-## Parte D — Actividad Optativa
+## Parte D — Actividades Optativas
 
-_Pendiente._
+### D3 — Automatización de la carga de riesgos (Docker Compose + script de seed)
+
+Se evaluó primero automatizar la carga vía la **API REST de SimpleRisk**, pero se
+comprobó que en la versión Community (imagen Docker usada en este TP) el acceso a la API
+es una funcionalidad paga ("API Extra", visible en *Settings → Extras* con botón
+"Purchase"); un `curl` autenticado contra `/api/v2/documentation.php` devuelve `401`. Se
+documenta esto como hallazgo honesto en vez de forzar una vía no disponible.
+
+Como alternativa —habilitada explícitamente por el enunciado— se automatizó la carga
+mediante un **script SQL** (`scripts/seed_risks.sql`) que inserta directamente en las
+tablas internas de SimpleRisk (`assets`, `risks`, `risk_scoring`, `risks_to_assets`) los 8
+riesgos del registro, sus valores de probabilidad/impacto y sus activos afectados.
+
+Características del script:
+- **Idempotente**: cada INSERT está guardado con `WHERE NOT EXISTS` sobre una clave de
+  negocio (nombre de activo / subject de riesgo), verificado corriéndolo dos veces sobre
+  la misma base sin generar duplicados.
+- **Reproducible**: pensado para correr una sola vez sobre una instalación recién
+  inicializada de SimpleRisk (después de crear la cuenta de administrador).
+- **Uso:**
+  ```bash
+  docker exec -i simplerisk mysql -h127.0.0.1 -u simplerisk -p"$SIMPLERISK_DB_PASSWORD" \
+    simplerisk < scripts/seed_risks.sql
+  ```
+  La contraseña de la base se obtiene de
+  `/var/www/simplerisk/includes/config.php` dentro del contenedor (`DB_PASSWORD`) — se
+  genera aleatoriamente por instalación y nunca se versiona en este repositorio.
+
+**Limitación de seguridad relevada (relevante para el análisis crítico):** este método
+escribe directamente en la base de datos, **evitando por completo la capa de validación
+de la aplicación PHP**. No genera entradas en el audit trail ni en el historial de
+scoring que sí se generan al cargar un riesgo desde la interfaz. Es aceptable para poblar
+un entorno de demostración/TP reproducible, pero sería un antipatrón de seguridad grave en
+un entorno productivo real (bypass de controles de aplicación, ausencia de trazabilidad).
+Irónicamente, esto es un paralelismo directo con el riesgo **R01** del propio registro:
+tanto este script como el acceso root del proveedor logran lo mismo — control total sobre
+los datos sin pasar por los controles de la aplicación.
+
+### D2 — Integración real (webhook)
+
+_Pendiente — ver Parte C para el diseño de la integración._

@@ -37,13 +37,12 @@ THRESHOLD=$(docker exec "$CONTAINER" mysql -h127.0.0.1 -u simplerisk -p"$DB_PASS
   "SELECT value FROM risk_levels WHERE name = 'High';")
 
 RISKS=$(docker exec "$CONTAINER" mysql -h127.0.0.1 -u simplerisk -p"$DB_PASSWORD" simplerisk -N -e \
-  "SELECT r.id, r.subject, l.name, s.calculated_risk
+  "SELECT r.id, r.subject,
+     (SELECT l.name FROM risk_levels l WHERE l.value <= s.calculated_risk ORDER BY l.value DESC LIMIT 1) AS level,
+     s.calculated_risk
    FROM risks r
    JOIN risk_scoring s ON s.id = r.id
-   JOIN risk_levels l ON s.calculated_risk >= l.value
    WHERE s.calculated_risk >= $THRESHOLD
-   GROUP BY r.id
-   HAVING l.value = MAX(l.value)
    ORDER BY s.calculated_risk DESC;")
 
 if [ -z "$RISKS" ]; then
@@ -52,8 +51,15 @@ if [ -z "$RISKS" ]; then
 fi
 
 while IFS=$'\t' read -r id subject level score; do
-  message="⚠️ **Riesgo de nivel ${level} detectado en SimpleRisk**\n**#${id} — ${subject}**\nScore: ${score}\nRevisar en: http://localhost:8081/management/view.php?id=${id}"
+  # Solo caracteres ASCII en el mensaje: en algunos entornos (Git Bash en
+  # Windows) el emoji/guion largo se corrompen al pasar por printf/sed y
+  # generan UTF-8 invalido, que Discord rechaza con 400 "invalid JSON".
+  message="[ALERTA] Riesgo de nivel ${level} detectado en SimpleRisk\n#${id} - ${subject}\nScore: ${score}\nRevisar en: http://localhost:8081/management/view.php?id=${id}"
   payload=$(printf '{"content": "%s"}' "$(printf '%s' "$message" | sed 's/"/\\"/g')")
-  curl -s -H "Content-Type: application/json" -X POST -d "$payload" "$WEBHOOK_URL" > /dev/null
-  echo "Notificado: #${id} - ${subject} (${level}, score ${score})"
+  http_code=$(curl -s -o /tmp/notify_response.json -w "%{http_code}" -H "Content-Type: application/json" -X POST -d "$payload" "$WEBHOOK_URL")
+  if [ "$http_code" = "204" ] || [ "$http_code" = "200" ]; then
+    echo "Notificado: #${id} - ${subject} (${level}, score ${score})"
+  else
+    echo "Error notificando #${id} (HTTP ${http_code}): $(cat /tmp/notify_response.json 2>/dev/null)" >&2
+  fi
 done <<< "$RISKS"

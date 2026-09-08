@@ -1,0 +1,14 @@
+version: "3.8"
+
+# Equivalente en Docker Compose a los comandos utilizados durante la instalación manual:
+#   docker pull simplerisk/simplerisk
+#   docker run --name simplerisk -d -p 80:80 -p 443:443 simplerisk/simplerisk
+
+services:
+  simplerisk:
+    image: simplerisk/simplerisk
+    container_name: simplerisk
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped

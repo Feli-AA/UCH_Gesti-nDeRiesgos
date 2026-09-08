@@ -377,6 +377,8 @@ Score: 8
 Revisar en: https://localhost:8444/management/view.php?id=2
 ```
 
+![Notificación del webhook D2 recibida en el canal de Discord](capturas/discord-notificacion-d2.png)
+
 **Nota:** el link apunta a `localhost:8444` (el puerto HTTPS mapeado en
 `docker-compose.yml`) porque SimpleRisk corre en un contenedor Docker local para este TP
 (no hay una instancia pública). Es el comportamiento esperado en este entorno de

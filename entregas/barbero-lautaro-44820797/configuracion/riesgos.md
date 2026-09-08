@@ -561,7 +561,7 @@ Como estudiante de Seguridad de Sistemas, declaro que el presente análisis de r
 
 Los datos de la organización analizada corresponden a un escenario simulado con fines académicos. No se utilizó información real de pacientes, personal ni instituciones. Las credenciales mencionadas en la documentación del trabajo son ficticias.
 
-Firma del alumno: ____________________  Fecha: ____________________
+Firma del alumno: Barbero Lautaro  Fecha: 08/09/2026
 
 ---
 

@@ -1,0 +1,63 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: simplerisk-mysql-demo
+    restart: unless-stopped
+    command: --sql-mode=
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Completar MYSQL_ROOT_PASSWORD en .env}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  setup:
+    image: simplerisk/simplerisk-minimal:20260820-001
+    profiles: ["setup"]
+    depends_on:
+      mysql:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DB_SETUP: automatic-only
+      DB_SETUP_USER: root
+      DB_SETUP_PASS: ${MYSQL_ROOT_PASSWORD:?Completar MYSQL_ROOT_PASSWORD en .env}
+      DB_SETUP_WAIT: "10"
+      SIMPLERISK_DB_HOSTNAME: mysql
+      SIMPLERISK_DB_PORT: "3306"
+      SIMPLERISK_DB_USERNAME: simplerisk
+      SIMPLERISK_DB_DATABASE: simplerisk
+      SIMPLERISK_DB_FOR_SESSIONS: "true"
+      SIMPLERISK_CRON_SETUP: disabled
+
+  simplerisk:
+    image: simplerisk/simplerisk-minimal:20260820-001
+    container_name: simplerisk-demo
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8081:80"
+      - "443:443"
+    env_file:
+      - .env
+    environment:
+      SIMPLERISK_DB_HOSTNAME: mysql
+      SIMPLERISK_DB_PORT: "3306"
+      SIMPLERISK_DB_USERNAME: simplerisk
+      SIMPLERISK_DB_DATABASE: simplerisk
+      SIMPLERISK_DB_FOR_SESSIONS: "true"
+      SIMPLERISK_CRON_SETUP: enabled
+    volumes:
+      - simplerisk_uploads:/var/www/simplerisk/uploads
+      - simplerisk_logs:/var/www/simplerisk/logs
+
+volumes:
+  mysql_data:
+  simplerisk_uploads:
+  simplerisk_logs:

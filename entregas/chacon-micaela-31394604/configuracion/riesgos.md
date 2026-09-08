@@ -428,24 +428,28 @@ a información sensible y proteger los datos almacenados y transmitidos.
 
 ---
 
+---
+
 ## Evidencia
 
-Las siguientes capturas respaldan la creación y configuración de los riesgos y planes de mitigación en SimpleRisk.
+Las siguientes capturas respaldan la creación y configuración del riesgo de prueba, los riesgos analizados para la clínica y los planes de mitigación configurados en SimpleRisk.
 
 | Evidencia | Archivo |
 |---|---|
-| Riesgo R01 — Ransomware sobre historias clínicas digitales | [`riesgo_R01_ransomware.png`](../informe/capturas/riesgo_R01_ransomware.png) |
-| Riesgo R02 — Acceso no autorizado a historias clínicas | [`riesgo_R02_acceso_no_autorizado.png`](../informe/capturas/riesgo_R02_acceso_no_autorizado.png) |
-| Riesgo R03 — Falla o pérdida de copias de seguridad | [`riesgo_R03_backups.png`](../informe/capturas/riesgo_R03_backups.png) |
-| Riesgo R04 — Caída del sistema de gestión clínica | [`riesgo_R04_caida_sistema.png`](../informe/capturas/riesgo_R04_caida_sistema.png) |
-| Riesgo R05 — Phishing dirigido al personal | [`riesgo_R05_phishing.png`](../informe/capturas/riesgo_R05_phishing.png) |
-| Riesgo R06 — Modificación incorrecta de información médica | [`riesgo_R06_modificacion_datos.png`](../informe/capturas/riesgo_R06_modificacion_datos.png) |
-| Riesgo R07 — Filtración de datos de pacientes y obras sociales | [`riesgo_R07_filtracion_datos.png`](../informe/capturas/riesgo_R07_filtracion_datos.png) |
-| Plan de mitigación R01 — Ransomware | [`mitigacion_R01_ransomware.png`](../informe/capturas/mitigacion_R01_ransomware.png) |
-| Plan de mitigación R03 — Copias de seguridad | [`mitigacion_R03_backups.png`](../informe/capturas/mitigacion_R03_backups.png) |
-| Plan de mitigación R04 — Caída del sistema | [`mitigacion_R04_caida_sistema.png`](../informe/capturas/mitigacion_R04_caida_sistema.png) |
+| Riesgo R01 — Riesgo de prueba: indisponibilidad del sistema clínico | [`riesgo_R01_prueba.png`](../informe/capturas/riesgo_R01_prueba.png) |
+| Riesgo R02 — Ransomware sobre historias clínicas digitales | [`riesgo_R02_ransomware.png`](../informe/capturas/riesgo_R02_ransomware.png) |
+| Riesgo R03 — Acceso no autorizado a historias clínicas digitales | [`riesgo_R03_acceso_no_autorizado.png`](../informe/capturas/riesgo_R03_acceso_no_autorizado.png) |
+| Riesgo R04 — Falla o pérdida de copias de seguridad | [`riesgo_R04_backups.png`](../informe/capturas/riesgo_R04_backups.png) |
+| Riesgo R05 — Caída del sistema de gestión clínica | [`riesgo_R05_caida_sistema.png`](../informe/capturas/riesgo_R05_caida_sistema.png) |
+| Riesgo R06 — Phishing dirigido al personal | [`riesgo_R06_phishing.png`](../informe/capturas/riesgo_R06_phishing.png) |
+| Riesgo R07 — Modificación incorrecta de información médica | [`riesgo_R07_modificacion_datos.png`](../informe/capturas/riesgo_R07_modificacion_datos.png) |
+| Riesgo R08 — Filtración de datos de pacientes y obras sociales | [`riesgo_R08_filtracion_datos.png`](../informe/capturas/riesgo_R08_filtracion_datos.png) |
+| Plan de mitigación R02 — Ransomware | [`mitigacion_R02_ransomware.png`](../informe/capturas/mitigacion_R02_ransomware.png) |
+| Plan de mitigación R04 — Copias de seguridad | [`mitigacion_R04_backups.png`](../informe/capturas/mitigacion_R04_backups.png) |
+| Plan de mitigación R05 — Caída del sistema clínico | [`mitigacion_R05_caida_sistema.png`](../informe/capturas/mitigacion_R05_caida_sistema.png) |
 
-Las capturas se encuentran almacenadas en:
+
+> Las capturas utilizadas como evidencia no contienen contraseñas, tokens, claves API ni otra información sensible.
 
 `informe/capturas/`
 

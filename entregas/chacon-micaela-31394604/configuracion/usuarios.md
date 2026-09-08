@@ -142,3 +142,20 @@ controle todo el ciclo de gestión de riesgos.
 
 Las contraseñas utilizadas durante la configuración no se documentan ni se almacenan en el
 repositorio.
+
+## Evidencia
+
+Las siguientes capturas muestran la configuración de usuarios y permisos realizada en SimpleRisk.
+
+| Evidencia | Archivo |
+|---|---|
+| Creación y configuración del usuario administrador | [`usuario_admin.png`](../informe/capturas/usuario_admin.png) |
+| Permisos configurados para el Analista de Riesgos | [`usuario_analista_permisos.png`](../informe/capturas/usuario_analista_permisos.png) |
+| Creación correcta del Analista de Riesgos | [`usuario_analista_creado.png`](../informe/capturas/usuario_analista_creado.png) |
+| Permisos configurados para el Auditor | [`usuario_auditor_permisos.png`](../informe/capturas/usuario_auditor_permisos.png) |
+| Creación correcta del Auditor | [`usuario_auditor_creado.png`](../informe/capturas/usuario_auditor_creado.png) |
+
+Las capturas se encuentran almacenadas en:
+
+`informe/capturas/`
+

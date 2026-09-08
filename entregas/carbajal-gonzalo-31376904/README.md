@@ -47,11 +47,13 @@ Confirmo haber leído el enunciado completo del TP (`TareaClase4.pdf`). Palabra 
 
 ## Checklist de auto-revisión
 
-- [ ] No hay credenciales en el repositorio.
-- [ ] El `.gitignore` está correctamente configurado.
-- [ ] Las capturas no muestran datos sensibles.
-- [ ] Los archivos `.sql` o dumps no están subidos.
-- [ ] El informe está en formato legible.
-- [ ] El reporte ejecutivo está completo.
-- [ ] Los mensajes de commit son descriptivos.
-- [ ] Mi branch está actualizada y funciona.
+- [x] No hay credenciales en el repositorio.
+- [x] El `.gitignore` está correctamente configurado.
+- [ ] Las capturas no muestran datos sensibles. *(pendiente: recortar la barra de
+      marcadores del navegador visible en `settings-roles.png`, ver nota en informe.md)*
+- [x] Los archivos `.sql` o dumps no están subidos (`scripts/seed_risks.sql` es un script
+      de código, no un dump de datos; excepción explícita y justificada en `.gitignore`).
+- [x] El informe está en formato legible.
+- [ ] El reporte ejecutivo está completo. *(pendiente de generar el PDF)*
+- [x] Los mensajes de commit son descriptivos.
+- [x] Mi branch está actualizada y funciona.

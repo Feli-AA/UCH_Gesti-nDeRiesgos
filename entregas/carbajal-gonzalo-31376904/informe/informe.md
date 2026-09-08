@@ -241,7 +241,78 @@ score bruto que muestra la herramienta.
 
 ## Parte C — Análisis Crítico y Profundización
 
-_Pendiente._
+### Comparación metodológica: SimpleRisk (Classic P×I) vs. FAIR
+
+**SimpleRisk (modelo "Classic")** clasifica el riesgo con una matriz cualitativa de
+Probabilidad × Impacto en escala 1-5, multiplicando ambos valores y aplicando un factor de
+escala interno (`× 0.4`, ver nota metodológica de la Parte B) para ubicar el resultado en
+cuatro bandas (Low/Medium/High/Very High). Es el modelo más difundido en la práctica
+porque es rápido de aplicar y no requiere datos históricos.
+
+**FAIR (Factor Analysis of Information Risk)** es un modelo **cuantitativo**: en vez de
+una escala ordinal 1-5, descompone el riesgo en factores medibles —Frecuencia de Amenaza
+(TEF), Vulnerabilidad, Frecuencia de Pérdida (LEF), y Magnitud de Pérdida Probable
+(PLM)— y expresa el resultado como una **distribución de pérdida económica esperada**
+(ej. "entre USD 50.000 y USD 300.000 anuales, con 90% de confianza"), típicamente mediante
+simulación de Montecarlo.
+
+| Aspecto | SimpleRisk (Classic) | FAIR |
+|---|---|---|
+| Naturaleza | Cualitativa/ordinal (1-5) | Cuantitativa (rangos monetarios, probabilidad estadística) |
+| Insumos necesarios | Criterio experto del analista | Datos históricos, tasas de incidentes, valuación de activos |
+| Velocidad de aplicación | Alta — se carga un riesgo en minutos | Baja — requiere modelado y calibración por riesgo |
+| Comparabilidad entre riesgos | Limitada — "Alto" de un riesgo no es necesariamente comparable en magnitud real con "Alto" de otro | Alta — todo se expresa en la misma unidad (USD esperados), permite priorizar por ROI de mitigación |
+| Transparencia del cálculo | Baja en la práctica: la fórmula y los umbrales de nivel no son evidentes para el usuario final (ver hallazgo de la Parte B) | Alta — cada factor y su fuente quedan documentados explícitamente |
+| Curva de aprendizaje | Baja | Alta — requiere formación específica (FAIR Institute certifica analistas) |
+| Costo de implementación | Bajo (herramienta gratuita, sin insumos externos) | Alto (tiempo de analista, datos actuariales/de mercado) |
+
+**¿Cuándo conviene cada una?** Para una organización como Cable Sur (90 empleados, sin
+área de riesgo dedicada), la matriz Classic de SimpleRisk es la opción **pragmática**: da
+un registro de riesgos accionable en poco tiempo y con el conocimiento del propio personal
+de IT, sin requerir un analista FAIR certificado ni datos actuariales que la empresa no
+tiene. FAIR sería preferible para los riesgos de mayor magnitud del propio registro —por
+ejemplo, **R01** (acceso privilegiado del proveedor) o **R02** (datos de tarjetas,
+PCI-DSS)— si la dirección necesitara justificar ante el directorio una inversión
+concreta (¿vale la pena gastar USD 8.000 en un PAM?) con una cifra de pérdida evitada en
+lugar de una etiqueta cualitativa "Crítico". En síntesis: Classic para el **registro
+inicial completo** (rapidez, cobertura), FAIR para un **análisis de profundidad** sobre
+los 2-3 riesgos de mayor impacto económico potencial, antes de aprobar presupuesto.
+
+### Integración con herramienta externa
+
+Se documenta (y se implementó, ver D2 en la Parte D) una integración de **notificación de
+riesgos altos vía webhook**, con Discord como destino de prueba (el mismo mecanismo aplica
+sin cambios a Slack o Microsoft Teams, que aceptan el mismo tipo de payload JSON simple).
+
+**Arquitectura de la integración (`scripts/notify_high_risks.sh`):**
+
+```
+[Base de datos de SimpleRisk] --(SELECT via mysql client)--> [script bash]
+        --(POST JSON)--> [Webhook de Discord/Slack/Teams] --> [Canal del equipo de seguridad]
+```
+
+Se consulta directamente la base de datos (no la API REST, que es un "Extra" pago no
+disponible en la versión Community — ver Parte D) filtrando riesgos cuyo `calculated_risk`
+supera el umbral "High" definido dinámicamente en la tabla `risk_levels` del propio
+sistema, y se envía un mensaje por cada uno al canal configurado.
+
+**Alternativa para un entorno productivo real (SIEM):** si Cable Sur tuviera un SIEM
+(Splunk, Elastic, Wazuh), la integración recomendada no sería un webhook puntual sino:
+
+1. Exportar periódicamente la tabla `audit_log`/`risks` de SimpleRisk (o, si se paga el
+   Extra, consumir la API REST) hacia un pipeline de ingesta (Filebeat/Logstash) que
+   normalice los eventos a un formato común (CEF/JSON).
+2. Correlacionar en el SIEM los riesgos "Crítico"/"Very High" del registro de gestión de
+   riesgos con alertas de seguridad operativas (ej. intentos de acceso fallidos al
+   servidor de producción del riesgo R01), para detectar cuándo un riesgo teórico se está
+   materializando en tiempo real.
+3. Generar un ticket automático en un sistema de gestión (Jira/ServiceNow) por cada riesgo
+   nuevo de nivel Alto/Crítico, asignado al propietario documentado en `riesgos.md`, en
+   vez de depender de que alguien revise el dashboard manualmente.
+
+Esta arquitectura extendida no se implementó en este TP (excede el alcance de un webhook
+de demostración), pero queda documentada como el camino de evolución natural del
+prototipo de D2.
 
 ## Parte D — Actividades Optativas
 

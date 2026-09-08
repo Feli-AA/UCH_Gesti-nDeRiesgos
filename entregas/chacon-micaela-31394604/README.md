@@ -343,15 +343,14 @@ Palabra clave solicitada en la consigna:
 
 ---
 
+
 # Checklist de auto-revisión
 
-Este checklist debe completarse al finalizar toda la entrega.
-
-- [ ] No hay credenciales en el repositorio.
-- [ ] El `.gitignore` está correctamente configurado.
-- [ ] Las capturas no muestran datos sensibles.
-- [ ] Los archivos `.sql` o dumps no están subidos.
-- [ ] El informe está en formato legible.
-- [ ] El reporte ejecutivo está completo.
-- [ ] Los mensajes de commit son descriptivos.
-- [ ] La branch correspondiente está actualizada y funciona.
+- [x] No hay credenciales en el repositorio.
+- [x] El `.gitignore` está correctamente configurado.
+- [x] Las capturas no muestran datos sensibles.
+- [x] Los archivos `.sql` o dumps no están subidos.
+- [x] El informe está en formato legible.
+- [x] El reporte ejecutivo está completo.
+- [x] Los mensajes de commit son descriptivos.
+- [x] La branch correspondiente está actualizada y funciona.

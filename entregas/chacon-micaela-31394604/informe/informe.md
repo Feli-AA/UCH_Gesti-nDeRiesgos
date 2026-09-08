@@ -450,6 +450,57 @@ acciones necesarias para transformar los planes de tratamiento en tareas concret
 
 ---
 
+# 17. Actividad opcional D1 — Análisis de seguridad de la instalación
+
+## 17.1 Certificado HTTPS no confiable
+
+Durante el acceso local a SimpleRisk, el navegador mostró una advertencia relacionada con
+el certificado HTTPS utilizado por la instalación.
+
+**Riesgo identificado:** en un entorno productivo, un certificado no confiable puede generar
+advertencias en los usuarios y dificultar la validación de la identidad del servidor.
+
+**Mitigación propuesta:** utilizar un certificado válido emitido por una autoridad certificante
+confiable y configurar correctamente HTTPS.
+
+---
+
+## 17.2 Uso de una imagen Docker sin versión fija
+
+En el archivo `docker-compose.yml` se utiliza la imagen:
+
+`sim​​plerisk/simplerisk:latest`
+
+**Riesgo identificado:** utilizar la etiqueta `latest` puede hacer que una futura instalación
+descargue una versión diferente de la utilizada durante el trabajo, afectando la reproducibilidad
+y pudiendo introducir cambios no evaluados.
+
+**Mitigación propuesta:** utilizar una versión específica de la imagen y realizar las
+actualizaciones de manera controlada y luego de realizar pruebas.
+
+---
+
+## 17.3 Exposición de puertos del servicio
+
+La instalación publica los puertos `80` y `443` para acceder a SimpleRisk.
+
+**Riesgo identificado:** si el equipo estuviera accesible desde una red no controlada,
+los servicios podrían quedar expuestos a usuarios no autorizados.
+
+**Mitigación propuesta:** limitar el acceso mediante reglas de firewall, restringir la exposición
+a redes de confianza y publicar únicamente los servicios necesarios.
+
+---
+
+## Resumen
+
+| Hallazgo | Riesgo principal | Mitigación |
+|---|---|---|
+| Certificado HTTPS no confiable | Advertencias y validación incorrecta del servidor | Certificado válido y configuración segura de HTTPS |
+| Imagen Docker con `latest` | Cambios no controlados y menor reproducibilidad | Fijar una versión concreta de la imagen |
+| Puertos 80 y 443 expuestos | Acceso desde redes no autorizadas | Firewall y restricción a redes de confianza |
+
+---
 ## Evidencia
 
 Las capturas utilizadas durante el trabajo se encuentran en:

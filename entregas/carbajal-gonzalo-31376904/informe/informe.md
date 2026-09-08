@@ -363,4 +363,31 @@ los datos sin pasar por los controles de la aplicación.
 
 ### D2 — Integración real (webhook)
 
-_Pendiente — ver Parte C para el diseño de la integración._
+Se implementó y **probó end-to-end** `scripts/notify_high_risks.sh`, que consulta los
+riesgos de nivel "High" o superior en la base de datos de SimpleRisk y notifica cada uno
+a un webhook de Discord (ver diseño completo en la Parte C, sección "Integración con
+herramienta externa").
+
+**Evidencia de funcionamiento:** al correr el script con la variable
+`DISCORD_WEBHOOK_URL` configurada, se recibió correctamente en el canal de Discord:
+
+```
+[ALERTA] Riesgo de nivel High detectado en SimpleRisk
+#2 - R01 - Acceso privilegiado sin restricciones del proveedor de software
+Score: 8
+Revisar en: http://localhost:8081/management/view.php?id=2
+```
+
+**Nota:** el link apunta a `localhost:8081` porque SimpleRisk corre en un contenedor Docker
+local para este TP (no hay una instancia pública). Es el comportamiento esperado en este
+entorno de demostración — en un despliegue productivo real ese link apuntaría a un dominio
+interno accesible por el equipo de seguridad.
+
+**Problema encontrado y resuelto durante la prueba:** la primera versión del script incluía
+un emoji (⚠️) y un guion largo (—) en el mensaje. En este entorno (Git Bash sobre Windows),
+esos caracteres se corrompían al pasar por `printf`/`sed`, generando una secuencia UTF-8
+inválida que Discord rechazaba con `HTTP 400 - "The request body contains invalid JSON"`.
+Se diagnosticó reproduciendo el payload manualmente con `curl -i` para ver la respuesta
+completa de la API (el script original silenciaba la salida de `curl`), y se corrigió
+usando solo texto ASCII en el mensaje y agregando verificación explícita del código de
+estado HTTP de la respuesta.

@@ -1,11 +1,11 @@
-# Trabajo Practico - Gestion de Riesgos con SimpleRisk
+# Trabajo Práctico - Gestion de Riesgos con SimpleRisk
 
 ## Datos personales
 
-- Nombre completo: Federico Garcia
+- Nombre completo: Federico García
 - LU: 31105414
 - Email institucional: federico.garcia.uch@gmail.com
-- Comision: 4 año lic. sistemas
+- Comisión: 4 año lic. sistemas
 
 ## Como levantar el entorno
 
@@ -28,7 +28,7 @@ Para reproducir el entorno de SimpleRisk usado en este trabajo:
    de ahi se pueden crear los demas usuarios (Analista de Riesgos y Auditor),
    documentados en `configuracion/usuarios.md`.
 
-## Decisiones de diseno
+## Decisiones de diseño
 
 Para este trabajo se eligio como escenario una clinica privada de 120 empleados
 que atiende 800 pacientes por dia, tal como plantea la consigna, definiendola

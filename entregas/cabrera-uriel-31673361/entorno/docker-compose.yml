@@ -1,0 +1,59 @@
+# =============================================================================
+#  SimpleRisk - Entorno reproducible para el TP de Gestion de Riesgos
+#  Autor: Uriel Cabrera - LU 31673361
+#
+#  Uso:
+#      docker compose up -d
+#      Acceso: https://localhost:8443   (certificado autofirmado)
+#
+#  Imagen: simplerisk/simplerisk (imagen oficial "todo en uno": Apache +
+#  PHP + MySQL + utilidades de correo dentro del mismo contenedor).
+#  Ver "Decisiones de diseno" en el README para la justificacion de esta
+#  eleccion frente a la variante simplerisk-minimal + MySQL separado.
+# =============================================================================
+
+name: simplerisk-tp
+
+services:
+  simplerisk:
+    image: simplerisk/simplerisk:latest
+    container_name: simplerisk_app
+    restart: unless-stopped
+
+    ports:
+      # Se usan puertos altos a proposito: en Windows el 80 suele estar
+      # ocupado (IIS, Skype, otros servicios) y el 443 tambien.
+      # SimpleRisk fuerza HTTPS, asi que el acceso real es por el 8443.
+      - "8080:80"
+      - "8443:443"
+
+    volumes:
+      # Persistencia de la base de datos. Sin esto, cada `docker compose down`
+      # borra todos los riesgos cargados y hay que rehacer el TP entero.
+      - simplerisk_db:/var/lib/mysql
+
+    healthcheck:
+      # -k acepta el certificado autofirmado que genera la imagen.
+      test: ["CMD-SHELL", "curl -fsk https://localhost/ > /dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+    # --- Limites de recursos -------------------------------------------------
+    # La notebook tiene 12 GB de RAM y WSL2 esta limitado a 4 GB via .wslconfig.
+    # Sin este tope, MySQL dentro del contenedor puede reservar de mas.
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+    
+    # no-new-privileges impide que un proceso dentro del contenedor gane
+    # privilegios via binarios setuid. Practica estandar de Docker.
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  simplerisk_db:
+    name: simplerisk_tp_db

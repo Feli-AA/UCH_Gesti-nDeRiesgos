@@ -1,0 +1,78 @@
+# =============================================================================
+#  .gitignore - Entrega Cabrera Uriel (LU 31673361)
+#  Incluye el minimo exigido por el enunciado + agregados propios.
+# =============================================================================
+
+# --- Credenciales y secretos -------------------------------------------------
+*.env
+.env.*
+!.env.example
+config.php
+*credentials*
+*secrets*
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.csr
+.htpasswd
+
+# --- Bases de datos con datos reales -----------------------------------------
+*.sql
+*.dump
+*.bak
+*.sqlite
+*.sqlite3
+*.db
+
+# --- Binarios pesados --------------------------------------------------------
+*.ova
+*.vmdk
+*.vdi
+*.vhd
+*.vhdx
+*.iso
+*.zip
+*.tar.gz
+*.tar
+*.7z
+*.rar
+
+# --- Snapshots de VM ---------------------------------------------------------
+snapshots/
+.vagrant/
+
+# --- OS e IDE ----------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- Logs con datos sensibles ------------------------------------------------
+*.log
+logs/
+
+# --- Agregados propios -------------------------------------------------------
+# Volumenes y overrides locales de Docker
+docker-compose.override.yml
+.docker/
+
+# Backups de SimpleRisk (contienen la base completa)
+backups/
+*.simplerisk
+
+# Capturas sin revisar: se mueven a informe/capturas/ recien despues de
+# verificar que no exponen credenciales, tokens ni datos personales.
+informe/capturas/_sin-revisar/
+
+# Artefactos de LaTeX del reporte ejecutivo
+*.aux
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk

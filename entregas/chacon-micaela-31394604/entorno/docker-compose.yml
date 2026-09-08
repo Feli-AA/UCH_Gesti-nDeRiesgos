@@ -1,0 +1,8 @@
+services:
+  simplerisk:
+    image: simplerisk/simplerisk:latest
+    container_name: simplerisk
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped

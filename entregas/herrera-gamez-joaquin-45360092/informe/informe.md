@@ -28,3 +28,28 @@ ISO 27005, en cambio, conviene cuando la organización está dispuesta a inverti
 ### Dato adicional
 
 Vale la pena mencionar que el propio Estado argentino, a través de la Oficina Nacional de Tecnologías de Información (ONTI) y su Disposición 1/2015, no impone una metodología de análisis de riesgos propia para la administración pública: exige que cada organismo diseñe la suya, siempre que sea compatible con ISO 27001/27005. Esto refuerza la idea de que ISO 27005 funciona como un marco de referencia ampliamente adoptado, incluso en contextos donde no existe un desarrollo metodológico local propio.
+
+## Parte C.2 — Integración con herramienta externa
+
+### Herramienta elegida: SMTP (correo electrónico)
+
+Se optó por **SMTP** por ser el protocolo de notificación más universal: prácticamente cualquier plataforma de trabajo (Microsoft 365, Google Workspace, Apple, Notion, sistemas de tickets, SIEM) puede recibir o reenviar alertas por correo, lo que hace de esta integración la más portable entre distintos entornos organizacionales, sin atarse a un proveedor específico.
+
+### Objetivo de la integración
+
+Actualmente, un riesgo de nivel Alto o Crítico en SimpleRisk solo se detecta si alguien entra manualmente a revisar el dashboard. La integración busca que la creación de un riesgo de ese nivel dispare automáticamente una notificación por correo al equipo de seguridad de la clínica, reduciendo el tiempo entre la detección y la reacción.
+
+### Arquitectura propuesta
+
+1. Un script (Python, usando la librería `smtplib`) consulta periódicamente los riesgos registrados en SimpleRisk, ya sea mediante su **API REST** (activable en Configure → API Settings) o mediante una consulta directa de solo lectura a la base de datos MySQL que utiliza la aplicación.
+2. El script filtra los riesgos con nivel Alto o Crítico que sean nuevos o que hayan cambiado de estado desde la última consulta.
+3. Por cada riesgo que cumple esa condición, arma un correo con asunto `[SimpleRisk] Alerta: {nombre del riesgo} - Nivel {nivel}` y el detalle del riesgo en el cuerpo, y lo envía vía SMTP a una casilla del equipo de seguridad.
+
+### Consideraciones de seguridad
+
+- Si se opta por consultar la base de datos directamente, se debe crear un usuario MySQL dedicado con permisos únicamente de `SELECT` (principio de mínimo privilegio), igual criterio aplicado a los roles de usuario de la Parte A.
+- Para el entorno de prueba de este Trabajo, se utiliza un servidor SMTP simulado (ver Parte D) en lugar de una cuenta de correo real, evitando exponer credenciales o información personal.
+
+### Valor de la integración
+
+Cierra el circuito entre la identificación del riesgo (SimpleRisk) y su comunicación efectiva al equipo responsable, sin depender de que alguien revise el sistema manualmente, y sin atar la solución a un proveedor de mensajería específico.

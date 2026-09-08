@@ -1,0 +1,42 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: simplerisk-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - simplerisk-net
+
+  simplerisk:
+    image: simplerisk/simplerisk-minimal:latest
+    container_name: simplerisk-app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_SETUP: automatic
+      DB_SETUP_USER: root
+      DB_SETUP_PASS: ${MYSQL_ROOT_PASSWORD}
+      DB_SETUP_WAIT: 20
+      SIMPLERISK_DB_HOSTNAME: db
+      SIMPLERISK_DB_DATABASE: simplerisk
+      SIMPLERISK_DB_USERNAME: simplerisk
+      SIMPLERISK_DB_PASSWORD: ${MYSQL_PASSWORD}
+      ADMIN_USERNAME: admin_demo
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_EMAIL: admin_demo@clinica-demo.local
+      ADMIN_NAME: Administrador Demo
+    ports:
+      - "8080:80"
+      - "8443:443"
+    networks:
+      - simplerisk-net
+
+volumes:
+  db_data:
+
+networks:
+  simplerisk-net:

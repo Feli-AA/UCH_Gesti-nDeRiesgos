@@ -54,6 +54,6 @@ Confirmo haber leído el enunciado completo del TP (`TareaClase4.pdf`). Palabra 
 - [x] Los archivos `.sql` o dumps no están subidos (`scripts/seed_risks.sql` es un script
       de código, no un dump de datos; excepción explícita y justificada en `.gitignore`).
 - [x] El informe está en formato legible.
-- [ ] El reporte ejecutivo está completo. *(pendiente de generar el PDF)*
+- [x] El reporte ejecutivo está completo (`reporte-ejecutivo/reporte.pdf`).
 - [x] Los mensajes de commit son descriptivos.
 - [x] Mi branch está actualizada y funciona.

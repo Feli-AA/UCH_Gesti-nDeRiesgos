@@ -1,0 +1,196 @@
+\documentclass[11pt,a4paper]{article}
+
+% ----------------- Paquetes -----------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{left=2cm,right=2cm,top=2.2cm,bottom=2.2cm}
+\usepackage[table]{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{array}
+
+% ----------------- Colores -----------------
+\definecolor{navy}{RGB}{22,50,79}
+\definecolor{teal}{RGB}{25,114,120}
+\definecolor{griscaja}{RGB}{245,247,249}
+\definecolor{azulsuave}{RGB}{232,240,250}
+\definecolor{nivelbajo}{RGB}{144,238,144}
+\definecolor{nivelmedio}{RGB}{255,224,102}
+\definecolor{nivelalto}{RGB}{255,173,92}
+\definecolor{nivelcritico}{RGB}{255,92,96}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=teal,
+  urlcolor=teal,
+  pdfauthor={Joaquin Herrera Gamez},
+  pdftitle={Reporte ejecutivo de riesgos - Clinica privada}
+}
+
+% ----------------- Cajas de contenido -----------------
+\newtcolorbox{decisionbox}[1][Decision requerida]{%
+  enhanced, breakable,
+  colback=azulsuave, colframe=navy,
+  fonttitle=\bfseries, title=#1
+}
+
+% ----------------- Encabezado y pie -----------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{navy} Gestion de riesgos -- Clinica privada}
+\fancyhead[R]{\small\color{navy} Reporte al Directorio}
+\fancyfoot[L]{\small\color{navy} Joaquin Herrera Gamez -- DNI 45360092}
+\fancyfoot[R]{\small\color{navy} Pagina \thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\usepackage{lastpage}
+
+% ----------------- Formato de titulos -----------------
+\titleformat{\section}{\Large\bfseries\color{navy}}{\thesection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+\titleformat{\subsection}{\large\bfseries\color{teal}}{\thesubsection.}{0.6em}{}
+
+\newcommand{\metric}[3]{%
+\begin{minipage}[t]{0.235\linewidth}
+\colorbox{#1}{\parbox[c][1.35cm][c]{0.92\linewidth}{\centering\color{navy}\textbf{\Large #2}\\[-1mm]\scriptsize #3}}
+\end{minipage}}
+
+\begin{document}
+
+% ---------- Portada / encabezado ----------
+\begin{center}
+\colorbox{navy}{\parbox{\textwidth}{\centering
+\vspace{3mm}
+{\color{white}\Huge\bfseries Reporte Ejecutivo de Riesgos}\\[2mm]
+{\color{white}\large Clinica privada -- Registro inicial de riesgos en SimpleRisk}\\[2mm]
+{\color{white}\small Dirigido al Directorio \quad$\vert$\quad Septiembre 2026 \quad$\vert$\quad Escenario ficticio (TP Seguridad de Sistemas)}
+\vspace{3mm}
+}}
+\end{center}
+
+\vspace{4mm}
+
+\section*{Resumen ejecutivo}
+\addcontentsline{toc}{section}{Resumen ejecutivo}
+
+Se realiz\'o un an\'alisis de riesgos de seguridad de la informaci\'on porque no se
+contemplaban formalmente los escenarios en los que los sistemas de la cl\'inica
+podr\'ian verse comprometidos. Se identificaron 7 riesgos espec\'ificos del contexto
+de la organizaci\'on. El m\'as urgente es R07: el personal utiliza contrase\~nas
+d\'ebiles o reutilizadas, f\'acilmente vulnerables tanto por un atacante externo como
+por alguien dentro de la organizaci\'on, con riesgo de acceso indebido a informaci\'on
+sensible. Ya se encuentran en planificaci\'on 3 acciones concretas para reducir los
+riesgos de mayor nivel.
+
+\vspace{2mm}
+\noindent
+\metric{griscaja}{7}{riesgos evaluados}\hfill
+\metric{nivelcritico!55}{1}{critico}\hfill
+\metric{nivelalto!55}{2}{altos}\hfill
+\metric{azulsuave}{3}{planes definidos}
+
+\vspace{4mm}
+
+\begin{decisionbox}
+Autorizar el inicio de los 3 planes de acci\'on ya definidos y priorizar la
+implementaci\'on de una pol\'itica de contrase\~nas obligatoria junto con
+autenticaci\'on multifactor (MFA), por tratarse del riesgo de mayor nivel (R07,
+Cr\'itico).
+\end{decisionbox}
+
+\vspace{4mm}
+
+\section*{Top 5 riesgos por nivel}
+\addcontentsline{toc}{section}{Top 5 riesgos por nivel}
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{} >{\centering\arraybackslash}p{1.1cm} X >{\centering\arraybackslash}p{2.1cm} >{\centering\arraybackslash}p{1.9cm} @{}}
+\toprule
+\textbf{ID} & \textbf{Riesgo} & \textbf{Prob.\ $\times$ Imp.} & \textbf{Nivel} \\
+\midrule
+R07 & Contrase\~nas d\'ebiles o reutilizadas & 4 $\times$ 4 = 16 & \cellcolor{nivelcritico}\textbf{Cr\'itico} \\
+R01 & Acceso indebido a historias cl\'inicas por personal sin necesidad de uso & 3 $\times$ 4 = 12 & \cellcolor{nivelalto}\textbf{Alto} \\
+R06 & Equipamiento m\'edico (IoT) como puerta de entrada a la red & 3 $\times$ 4 = 12 & \cellcolor{nivelalto}\textbf{Alto} \\
+R03 & Phishing dirigido al personal administrativo y m\'edico & 2 $\times$ 4 = 8 & \cellcolor{nivelmedio}\textbf{Medio} \\
+R02 & Filtraci\'on de datos de facturaci\'on y obras sociales & 2 $\times$ 4 = 8 & \cellcolor{nivelmedio}\textbf{Medio} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+{\small\color{teal!70!black}Clasificaci\'on seg\'un la matriz de la c\'atedra: cr\'itico 16--25, alto 10--15, medio 5--9, bajo 1--4.}
+
+\newpage
+
+\section*{Estado de los planes de acci\'on}
+\addcontentsline{toc}{section}{Estado de los planes de accion}
+
+Los 3 planes se encuentran en estado \textbf{Mitigation Planned}, con 0\% de avance.
+El riesgo residual solo podr\'a reconocerse una vez implementados y verificados los
+controles propuestos.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\textwidth}{@{} X >{\centering\arraybackslash}p{1.3cm} >{\raggedright\arraybackslash}p{3.4cm} >{\centering\arraybackslash}p{2.1cm} >{\centering\arraybackslash}p{1.8cm} @{}}
+\toprule
+\textbf{Plan} & \textbf{Riesgo} & \textbf{Responsable} & \textbf{Vencimiento} & \textbf{Presupuesto} \\
+\midrule
+Control de acceso por rol / especialidad & R01 & Jefe de Sistemas & 05/10/2026 & Bajo \\
+Segmentaci\'on de red para equipos IoT & R06 & Jefe de Sistemas & 20/10/2026 & Medio \\
+Pol\'itica de contrase\~nas obligatoria + MFA & R07 & Jefe de Sistemas / Admin.\ IT & 28/09/2026 & Medio \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+{\small\color{teal!70!black}Nota: R02 y R03 (nivel Medio) a\'un no cuentan con un plan formal asociado.}
+
+\vspace{6mm}
+
+\begin{decisionbox}[Seguimiento sugerido]
+Solicitar una actualizaci\'on mensual del porcentaje de avance de cada plan al
+responsable asignado, y evaluar en 60 d\'ias si corresponde definir planes formales
+adicionales para R02 y R03.
+\end{decisionbox}
+
+\vspace{8mm}
+
+\section*{Recomendaciones prioritarias}
+\addcontentsline{toc}{section}{Recomendaciones prioritarias}
+
+\begin{enumerate}[leftmargin=6mm,itemsep=5pt]
+  \item \textbf{Implementar cuanto antes una pol\'itica de contrase\~nas obligatoria y MFA.}
+  Es el riesgo de mayor nivel (R07, Cr\'itico) y hoy no cuenta con ning\'un control.
+
+  \item \textbf{Ejecutar y dar seguimiento a los 3 planes ya definidos.}
+  Control de acceso por rol, segmentaci\'on de red para equipos m\'edicos conectados,
+  y pol\'itica de contrase\~nas. Medir avance mensualmente.
+
+  \item \textbf{Capacitar al personal en detecci\'on de correos fraudulentos (phishing).}
+  Hoy no existe ning\'un entrenamiento al respecto, y es la puerta de entrada m\'as
+  com\'un para el robo de credenciales.
+
+  \item \textbf{Revisar peri\'odicamente los permisos de acceso a facturaci\'on y obras sociales.}
+  Para mantener vigente la separaci\'on de funciones ya implementada entre Analista y
+  Auditor.
+
+  \item \textbf{Presupuestar una copia de respaldo externa (fuera del sitio).}
+  Para no depender de un \'unico punto de falla si el servidor principal sufre un
+  incidente grave.
+\end{enumerate}
+
+\vfill
+\begin{center}
+{\scriptsize\color{teal!70!black}
+Documento elaborado en el marco del Trabajo Pr\'actico de Seguridad de Sistemas (UCH).
+Todos los datos personales y organizacionales utilizados son ficticios.}
+\end{center}
+
+\end{document}

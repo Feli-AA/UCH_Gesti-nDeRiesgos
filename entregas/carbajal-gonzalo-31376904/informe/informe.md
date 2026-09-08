@@ -325,9 +325,16 @@ es una funcionalidad paga ("API Extra", visible en *Settings → Extras* con bot
 documenta esto como hallazgo honesto en vez de forzar una vía no disponible.
 
 Como alternativa —habilitada explícitamente por el enunciado— se automatizó la carga
-mediante un **script SQL** (`scripts/seed_risks.sql`) que inserta directamente en las
-tablas internas de SimpleRisk (`assets`, `risks`, `risk_scoring`, `risks_to_assets`) los 8
-riesgos del registro, sus valores de probabilidad/impacto y sus activos afectados.
+mediante dos scripts SQL:
+
+- `scripts/seed_risks.sql`: inserta directamente en las tablas internas de SimpleRisk
+  (`assets`, `risks`, `risk_scoring`, `risks_to_assets`) los 8 riesgos del registro, sus
+  valores de probabilidad/impacto y sus activos afectados.
+- `scripts/seed_action_plans.sql`: inserta los 3 planes de acción (tabla `projects`, con
+  título, vencimiento y responsable) y sus mitigaciones asociadas (tabla `mitigations`,
+  con estrategia, esfuerzo, costo estimado y recomendación), vinculándolos a los riesgos
+  R01, R02 y R06 (los de nivel Alto/Crítico) mediante `risks.project_id` y
+  `risks.mitigation_id`.
 
 Características del script:
 - **Idempotente**: cada INSERT está guardado con `WHERE NOT EXISTS` sobre una clave de

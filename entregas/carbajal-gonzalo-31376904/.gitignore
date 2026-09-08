@@ -11,8 +11,9 @@ config.php
 *.sql
 *.dump
 *.bak
-# Excepcion: script de seed versionado (D3), no es un dump de datos reales
+# Excepcion: scripts de seed versionados (D3), no son dumps de datos reales
 !scripts/seed_risks.sql
+!scripts/seed_action_plans.sql
 
 # Binarios pesados
 *.ova

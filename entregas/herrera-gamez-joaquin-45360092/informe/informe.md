@@ -53,3 +53,16 @@ Actualmente, un riesgo de nivel Alto o Crítico en SimpleRisk solo se detecta si
 ### Valor de la integración
 
 Cierra el circuito entre la identificación del riesgo (SimpleRisk) y su comunicación efectiva al equipo responsable, sin depender de que alguien revise el sistema manualmente, y sin atar la solución a un proveedor de mensajería específico.
+
+## Parte D — Actividad Optativa
+
+### D2 — Integración real: alertas por correo (SMTP) via MailHog
+
+Se implementó de forma funcional la integración documentada en la Parte C.2, usando:
+
+- **MailHog** como servidor SMTP simulado (contenedor Docker adicional), para no depender de una cuenta de correo real ni exponer credenciales verdaderas.
+- Un usuario MySQL de solo lectura (`alertas_reader`, permisos `SELECT` únicamente) sobre la base `simplerisk_app`, ya que la API REST de SimpleRisk resultó ser una funcionalidad "Extra" no disponible en la licencia open-source utilizada, una limitación real de la herramienta, documentada aquí como hallazgo del proceso.
+- Un script en Python (`scripts/alertas_riesgos.py`) que consulta los riesgos con puntaje calculado (`calculated_risk`) mayor o igual a 4.0 (equivalente a Alto/Crítico en la escala normalizada de SimpleRisk), evita reenviar alertas ya notificadas (registro en `scripts/riesgos_notificados.json`), y envía un correo por cada riesgo nuevo que supera el umbral.
+- Las credenciales (usuario de base de datos, host SMTP) se gestionan mediante un archivo `.env` no versionado (excluido por `.gitignore`), cargado con `python-dotenv`; el código fuente no contiene ningún valor sensible.
+
+**Resultado de la prueba:** el script detectó correctamente los 3 riesgos de nivel Alto/Crítico (R01, R06 y R07) y las 3 alertas se recibieron en la bandeja de MailHog (evidencia en `informe/capturas/14_mailhog_alertas.png`).

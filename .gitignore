@@ -1,0 +1,7 @@
+# Ignorar archivos temporales y de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar volcados de base de datos
+*.sql
+*.dump

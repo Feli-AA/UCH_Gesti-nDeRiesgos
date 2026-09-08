@@ -9,9 +9,13 @@
 
 ## Escenario elegido
 
-En lugar del escenario de ejemplo (clínica privada), este trabajo utiliza como caso real un
-**cliente de la empresa donde trabajo, que opera con el sistema SIGA**. *(Sección a completar
-en detalle en `informe/informe.md`, incluyendo contexto del cliente, alcance y supuestos.)*
+En lugar del escenario de ejemplo (clínica privada), este trabajo utiliza como caso real
+a **"Cable Sur S.A."** (nombre ficticio, representativo de un cliente real de la empresa
+donde trabajo, ICITELCO), una empresa de triple play (TV por cable, internet, telefonía)
+que opera con el sistema **SIGA** on-premise en su propio datacenter. El nombre del
+cliente se anonimizó a propósito porque este repositorio es público. Detalle completo del
+escenario, los 8 riesgos identificados y los planes de acción en `informe/informe.md`
+(Parte B) y `configuracion/riesgos.md`.
 
 ## Cómo levantar el entorno
 
@@ -31,7 +35,11 @@ en detalle en `informe/informe.md`, incluyendo contexto del cliente, alcance y s
 
 - Metodología de riesgo: matriz clásica Probabilidad × Impacto (escala 1-5) provista por
   SimpleRisk, contrastada en `informe/informe.md` (Parte C) con una metodología alternativa.
-- Supuestos del escenario: *(completar al desarrollar la Parte B con el caso SIGA)*.
+- Supuestos del escenario: se optó por un despliegue **on-premise** (en lugar de nube)
+  porque expone una superficie de riesgo más rica para el análisis (continuidad física
+  del datacenter, accesos privilegiados de terceros, integraciones externas). El cliente
+  se anonimizó ("Cable Sur S.A.") porque el repositorio es público y el nombre real de un
+  cliente de ICITELCO es información de un tercero, no un secreto propio.
 
 ### Verificación
 

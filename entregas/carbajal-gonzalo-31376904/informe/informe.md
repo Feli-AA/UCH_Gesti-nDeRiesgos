@@ -41,7 +41,173 @@ cargados — confirma que el motor de scoring de SimpleRisk funciona correctamen
 
 ## Parte B — Escenario Real (Cliente SIGA)
 
-_Pendiente._
+### Contexto
+
+**Cable Sur S.A.** (nombre ficticio; representativo de un cliente real de ICITELCO — se
+anonimiza porque el repositorio de este TP es público) es una empresa de triple play
+(televisión por cable, internet y telefonía) en una ciudad del interior de Argentina, con
+~90 empleados y ~45.000 abonados activos. Utiliza **SIGA**, el sistema integrado de
+gestión de abonados de ICITELCO, instalado **on-premise** en un datacenter propio ubicado
+en sus oficinas centrales.
+
+Módulos de SIGA en uso: gestión de abonados y decodificadores (habilitación/deshabilitación
+remota), órdenes técnicas (instalación, mudanza, desconexión, avería), facturación
+(integrada con **ARCA** —ex AFIP— para la obtención de CAE), cobranza (Cajas, Débitos y
+Recibos, con débito automático de tarjetas de crédito/débito), y marketing (integraciones
+con Mailchimp, Braze, Zapier y Apigee para envío de campañas y facturas por email).
+
+El proveedor (ICITELCO) mantiene acceso remoto de soporte con privilegios de
+administrador root sobre el servidor de producción y privilegios completos de DBA sobre
+la base de datos, sin un esquema formal de acceso privilegiado (PAM). Una auditoría
+externa reciente identificó debilidades en la gestión de riesgos de Cable Sur, lo que
+motiva este registro inicial.
+
+Se eligió un escenario **on-premise** (en lugar de nube) porque expone una superficie de
+riesgo más completa y realista para este análisis: continuidad física del datacenter,
+gestión de accesos privilegiados de terceros, y dependencia de integraciones externas.
+
+### Riesgos identificados
+
+**R01 — Acceso privilegiado sin restricciones del proveedor de software**
+Descripción: el personal de desarrollo de ICITELCO posee acceso root permanente al
+servidor de producción y privilegios completos de DBA sobre la base de datos, sin MFA,
+sin grabación de sesión ni flujo de aprobación por acceso.
+Categoría: Confidencialidad / Integridad / Riesgo de terceros.
+Activos afectados: servidor de producción, base de datos de abonados y facturación.
+Probabilidad: **4 (Probable)** — el acceso está disponible de forma permanente y sin
+monitoreo activo; según el Verizon DBIR, el abuso de accesos legítimos y el riesgo de
+terceros/proveedores están entre las causas más frecuentes de incidentes.
+Impacto: **5 (Catastrófico)** — ese nivel de acceso permite exfiltrar datos de tarjetas y
+de abonados, manipular facturación o sabotear el sistema completo.
+Nivel: **20 — Crítico**.
+Controles existentes: ninguno formal más allá de la relación contractual con el proveedor.
+Tratamiento: **Mitigar** — implementar PAM (MFA, sesión grabada, aprobación just-in-time,
+mínimo privilegio), con revisión periódica de accesos.
+Propietario: Gerente de IT de Cable Sur.
+
+**R02 — Almacenamiento inseguro de datos de tarjetas de crédito/débito**
+Descripción: el módulo de Cobranza gestiona datos de tarjeta de los abonados para
+generar débitos automáticos mensuales; si se almacenan sin tokenización/cifrado conforme
+a PCI-DSS, quedan expuestos ante cualquier acceso indebido a la base.
+Categoría: Confidencialidad / Legal (PCI-DSS, Ley 25.326).
+Activos afectados: base de datos de Cobranza (Cajas/Débitos/Recibos).
+Probabilidad: **3 (Posible)** — sistemas de gestión de abonados de este tipo no siempre
+implementan tokenización completa por defecto.
+Impacto: **5 (Catastrófico)** — exposición masiva de datos financieros, sanciones y
+pérdida de confianza de abonados y entidades bancarias.
+Nivel: **15 — Alto**.
+Controles existentes: integración con entidades de cobranza (posible tokenización
+parcial, a confirmar con el equipo de Cable Sur).
+Tratamiento: **Mitigar** — migrar a tokenización vía pasarela de pago certificada
+PCI-DSS, eliminando el PAN completo de la base de SIGA.
+Propietario: CISO / Responsable de Seguridad de la Información.
+
+**R03 — Manipulación/fraude en habilitación remota de decodificadores**
+Descripción: el sistema permite habilitar/deshabilitar decodificadores en forma remota;
+un acceso indebido podría habilitar servicio sin pago (fraude) o deshabilitar
+decodificadores de abonados legítimos.
+Categoría: Integridad / Operativo.
+Activos afectados: módulo de gestión de decoders, ingresos por suscripción.
+Probabilidad: **3 (Posible)**.
+Impacto: **3 (Moderado)** — pérdida de ingresos puntual y reclamos de clientes,
+recuperable.
+Nivel: **9 — Medio**.
+Controles existentes: autenticación básica de operadores internos.
+Tratamiento: **Mitigar** — auditoría detallada por operación, alertas de habilitaciones
+anómalas, reconciliación periódica facturación vs. decoders activos.
+Propietario: Jefe de Operaciones Técnicas.
+
+**R04 — Exposición de datos vía integraciones con terceros**
+Descripción: SIGA envía datos de contacto y facturación a proveedores externos
+(Mailchimp, Braze, Zapier, Apigee) para marketing y automatización; credenciales/API
+keys mal gestionadas ampliarían la superficie de exposición.
+Categoría: Confidencialidad / Cadena de suministro.
+Activos afectados: datos de contacto/facturación de abonados, API keys.
+Probabilidad: **3 (Posible)** — múltiples integraciones amplían la superficie de ataque;
+el riesgo de cadena de suministro es una de las categorías de mayor crecimiento según el
+Verizon DBIR.
+Impacto: **4 (Mayor)** — filtración de datos de miles de abonados por un proveedor
+comprometido.
+Nivel: **12 — Alto**.
+Controles existentes: proveedores reconocidos con sus propios controles, pero sin
+evidencia de gestión centralizada de secretos.
+Tratamiento: **Mitigar** — vault de gestión de secretos, rotación periódica de API keys,
+revisión de acuerdos DPA, minimización de datos enviados.
+Propietario: Responsable de Sistemas / Integraciones.
+
+**R05 — Interrupción de facturación por falla de integración con ARCA**
+Descripción: la emisión de comprobantes depende de la conexión en línea con ARCA para
+obtener el CAE; una caída del servicio o de la conectividad interrumpe la facturación.
+Categoría: Disponibilidad / Legal.
+Activos afectados: módulo de Facturación.
+Probabilidad: **3 (Posible)** — dependencia de un servicio externo con caídas
+históricamente documentadas.
+Impacto: **3 (Moderado)** — demoras en la facturación, con mecanismos de contingencia
+regulatoria (CAE por lote posterior) que acotan el daño.
+Nivel: **9 — Medio**.
+Controles existentes: ninguno formal de contingencia identificado.
+Tratamiento: **Mitigar** — cola de reintentos automáticos y procedimiento manual de
+contingencia documentado.
+Propietario: Responsable de Facturación / Administración.
+
+**R06 — Riesgo físico/ambiental por datacenter propio sin redundancia**
+Descripción: SIGA y su base de datos residen en un datacenter propio en las oficinas
+centrales de Cable Sur, sin sitio de contingencia ni redundancia geográfica.
+Categoría: Disponibilidad / Continuidad de negocio.
+Activos afectados: todo el sistema SIGA (servidor y base de datos de producción).
+Probabilidad: **2 (Improbable)** en el corto plazo, pero no despreciable en un horizonte
+de varios años.
+Impacto: **5 (Catastrófico)** — un incendio, inundación o corte eléctrico prolongado deja
+fuera de servicio toda la operación (facturación, atención al cliente, gestión técnica)
+simultáneamente.
+Nivel: **10 — Alto**.
+Controles existentes: UPS básico (a confirmar), sin sitio alterno documentado.
+Tratamiento: **Mitigar** — plan de continuidad de negocio (BCP/DR), backups automatizados
+con copia off-site, y revisión de la ubicación física del datacenter.
+Propietario: Gerente de IT / Infraestructura.
+
+**R07 — Pérdida o robo de dispositivos móviles de técnicos de campo**
+Descripción: los técnicos acceden a datos de abonados (dirección, contacto, a veces
+facturación) desde dispositivos móviles en campo; la pérdida o robo sin cifrado expone
+esos datos.
+Categoría: Confidencialidad / Operativo.
+Activos afectados: dispositivos móviles de técnicos, datos de contacto de abonados.
+Probabilidad: **3 (Posible)** — los dispositivos en campo están más expuestos a pérdida o
+robo que los equipos de oficina.
+Impacto: **2 (Menor)** — el acceso queda acotado a los datos de la orden de trabajo
+asignada, no al sistema completo.
+Nivel: **6 — Medio**.
+Controles existentes: login individual por técnico.
+Tratamiento: **Mitigar** — cifrado de dispositivo, gestión MDM con bloqueo remoto, sesión
+con expiración corta.
+Propietario: Jefe de Operaciones Técnicas.
+
+**R08 — Incumplimiento de la Ley de Protección de Datos Personales en marketing**
+Descripción: las campañas de marketing reutilizan datos de contacto/facturación de
+abonados; sin gestión adecuada de consentimiento y opt-out hay riesgo de incumplir la Ley
+25.326.
+Categoría: Legal / Reputacional.
+Activos afectados: base de contacto de abonados, reputación de la empresa.
+Probabilidad: **2 (Improbable)** — no es habitual una auditoría proactiva de la AAIP
+sobre una PyME, salvo denuncia puntual.
+Impacto: **2 (Menor)** — sanciones económicas moderadas, impacto más reputacional que
+financiero directo.
+Nivel: **4 — Bajo**.
+Controles existentes: mecanismo de opt-out estándar de Mailchimp/Braze.
+Tratamiento: **Aceptar** (con monitoreo) — se mantiene el control existente y se agenda
+una revisión legal periódica de los consentimientos.
+Propietario: Responsable de Marketing / Legal.
+
+### Planes de acción (riesgos Alto/Crítico)
+
+Ver tabla completa en `configuracion/riesgos.md`. Resumen:
+
+1. **R01 (Crítico):** Implementar acceso privilegiado seguro (PAM) para el proveedor —
+   Gerente de IT, vencimiento 2026-11-30, USD 8.000.
+2. **R02 (Alto):** Migrar a tokenización PCI-DSS de datos de tarjeta — CISO, vencimiento
+   2027-02-28, USD 15.000.
+3. **R06 (Alto):** Plan de Continuidad de Negocio + backups off-site — Gerente de
+   IT/Infraestructura, vencimiento 2027-01-15, USD 6.000/año.
 
 ## Parte C — Análisis Crítico y Profundización
 

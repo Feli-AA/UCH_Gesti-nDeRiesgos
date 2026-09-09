@@ -1,0 +1,18 @@
+services:
+  simplerisk:
+    image: simplerisk/simplerisk:latest
+    container_name: simplerisk_app
+    restart: always
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - DB_PASSWORD=simplerisk
+      - MYSQL_ROOT_PASSWORD=simplerisk
+    volumes:
+      - simplerisk_db_data:/var/lib/mysql
+      - simplerisk_app_data:/var/www/simplerisk
+
+volumes:
+  simplerisk_db_data:
+  simplerisk_app_data:
